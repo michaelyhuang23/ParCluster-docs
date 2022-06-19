@@ -1,0 +1,9 @@
+# Fdb version 3
+["pdflatex"] 1655521169 "abstract.tex" "abstract.pdf" "abstract" 1655521170
+  "/usr/share/texmf-dist/web2c/texmf.cnf" 1650183167 39911 2da6c67557ec033436fe5418a70a8a61 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1655512721 2927664 85b180776cbca7bc33a5685bcde383e0 ""
+  "abstract.aux" 1655511909 32 3985256e7290058c681f74d7a3565a19 ""
+  "abstract.tex" 1655521169 2004 35ad1cd9fbfa14dfbc47626c3842f3f1 ""
+  (generated)
+  "abstract.log"
+  "abstract.pdf"

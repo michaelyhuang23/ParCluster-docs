@@ -1,0 +1,19 @@
+\begin{abstract}
+
+
+\onehalfspacing
+\myparagraph{Abstract}
+
+Clustering multidimensional points is a fundamental data mining task, with applications in astronomy, neuroscience, bioinformatics, and computer vision, just to name a few. Density-based clustering is a clustering framework that defines clusters as dense regions of points. It has the advantage of being able to detect clusters of arbitrary shapes, rendering it useful in many applications. 
+
+In this paper, we propose fast and theoretically efficient parallel algorithms for the Density-Peaks Clustering problem, a recently proposed approach for density-based clustering. DPC is effective in detecting clusters of arbitrary shapes, and is theoretically simple as it circumvents the difficulty of choosing a density threshold in classic density-based clustering approaches, such as the DBSCAN algorithm. However, existing DPC algorithms either suffer from an exorbitant quadratic runtime complexity or don't have a high degree of parallelism, limiting their scalability to large-scale datasets. To remedy the issue, we propose two theoretically efficient and practically fast algorithms with a high degree of parallelism for DPC. In terms of span (ideal parallel runtime), our first algorithm has polylogarithmic span on average and linearithmic span in the worst case, significantly improving upon the span of existing DPC algorithms. We also present priority search kd-tree, a novel data structure based on kd-tree that is inspired by priority search tree. We apply priority search kd-tree to DPC in our second algorithm, achieving polylogarithmic span on average and linear span in the worst case. 
+
+We provide optimized implementations of the two algorithms. Running on a 30-core machine with two-way hyperthreading, our algorithms achieve xxx, and xxx self-relative speedup. Compared to the best existing parallel DPC implementation, our algorithms achieve xxx, and xxx speedup.
+
+\singlespacing
+
+\end{abstract}
+
+% \cite{Liu2020Efficient}
+
+

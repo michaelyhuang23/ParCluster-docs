@@ -1,0 +1,71 @@
+\section{Introduction}
+% motivator; high level; prior work that directly relate this this paper; contributions
+%{\bf Motivation} 
+
+\myparagraph{Motivation}
+
+
+
+The problem of discovering dense clusters in networks is fundamental in large-scale graph analysis. It has applications in community search of social networks, clustering word-documents, improving advertising, detecting frauds, and analyzing protein-gene-disease relations in bioinformatics and medicine~\cite{Pavlopoulos2016,Sariyuce2017}. Classic algorithms for dense subgraph discovery include $k$-core \cite{MaBe83} decomposition, $k$-truss \cite{Cohen08}, and nucleus decomposition \cite{SariyuceP18}. However, these algorithms apply to general graphs, and do not take into account the bipartite structures that exist in many real-world graphs.
+
+A bipartite graph $G$ consists of two mutually exclusive sets of vertices $U,V$ and edges that connect between them. They model the affiliation between two distinct types of entities. Notably, bipartite graphs have been used to model authorship networks, group membership networks, peer-to-peer exchange networks, gene-disease associations, protein-protein interactions, and enzyme-reaction links~\cite{Pavlopoulos2016, Algarra2013, Fionda2007, Fang2019survey, watts1998cds}.
+
+Traditional dense substructure analysis on bipartite graphs projects bipartite graphs to unipartite co-occurrence networks by connecting two vertices if they share a neighbor, creating an edge. Then, $k$-core decomposition or a similar analysis is performed on the unipartite co-occurrence network. Co-occurrence network analysis can lose important connectivity information and cause an explosion of number of edges, making it practically inefficient \cite{Sariyuce2017}. Therefore, bipartite analogues for classic unipartite dense subgraph discovery algorithms are crucial for efficient and accurate dense substructure analysis on bipartite graphs. 
+
+Given the practical values of bipartite graphs, generalizing problems and algorithms for unipartite graphs to bipartite graphs has become a recent popular direction of research \cite{WangLin21,AhmedBat07,ZouZhao16,SaPi18}. The bipartite equivalent of $k$-core (bi-core) was introduced by Ahmed \textit{et al.}~\cite{AhmedBat07}. A $(\alpha,\beta)$-core (or a bi-core) is the maximal subgraph where the induced degrees of all vertices in the first partition is $\ge \alpha$ and the induced degrees of all vertices in the second partition is $\ge \beta$.
+
+\myparagraph{Applications} 
+Bi-core decomposition has been applied to recommendation systems, fraud detection, and community search~\cite{DingLi17,BeuXu13,WangZhang20}. Below, we list 3 specific applications of bi-core decomposition.
+
+\begin{enumerate}
+    \item \emph{Fraudster Detection}
+    Bi-core decomposition can be applied to a social network graph for fraudster/spammer detection by considering the bipartite graph connecting user accounts to posts they like/dislike/upvote/downvote. A common strategy of fraudulent online influence campaigns is to create a large number of fake social media accounts to like/dislike specific posts or online products in order to manipulate public opinions. These fake accounts are generally created to like/dislike a small number of posts; those posts generally receives lots of likes/dislikes. Therefore, a fraudulent influence campaign can be identified by identifying $(\alpha,\beta)$-cores with a low $\alpha$ value (corresponding to each user's degree) and a high $\beta$ value (corresponding to each post/product's degree).
+    \item \emph{Graph Visualization}
+    Algarra \textit{et al.} introduced $k$-core decomposition for visualizing bipartite biological networks modeling gene-protein, host-pathogen, and predator-prey interactions. $k$-core decomposition identifies dense communities within the bipartite graph, which represents communities of generalists (species that interact with many other species; for example, predators that prey on many species). These dense substructures help researchers identify critical species in an ecosystem. Similarly, bi-core decomposition can also be applied to the problem and can potentially generate more accurate representations since it addresses the imbalance between the two entities. For example, there are generally more predator species than prey species, so intuitively, the number of degrees a prey species needs to be considered a generalist should be higher than that of a predator species \cite{CampbellBio}.
+    \item \emph{Community Search}
+    Wang \textit{et al.} applied bi-core decomposition to find significant bipartite communities, which are densely-connected bipartite subgraphs with high edge weights containing a specific query vertex \cite{WangZhang20}. Their approach uses bi-core decomposition as a subroutine to narrow down the search range of significant bipartite communities.
+\end{enumerate}
+
+\myparagraph{Parallel Bi-core Decomposition}
+Liu \textit{et al.}~\cite{Liu2020Efficient} proposed the state-of-the-art sequential index-based approach for bi-core decomposition. Their algorithm runs in $\BigO{m^\frac{3}{2}}$ time and $\BigO{m}$ space, where $m$ is the number of edges. They leveraged computation-sharing across different rounds of peeling to improve upon prior works \cite{MonVla15,Liu2020Efficient}. Liu \textit{et al.} also introduces a parallel version of their algorithm. However, their parallel algorithm only parallelizes between rounds of peeling and does not parallelize the peeling process itself. As a result, it has long sequential dependencies, which limits its scalability to different large real-world graphs. 
+
+As the sizes of graphs such as social media networks and biology graphs increase, leveraging parallelism to speed up bi-core decomposition becomes increasingly crucial. The importance of parallelism also grows as it becomes increasingly difficult to increase CPU clock speeds, as a result of which, chip manufacturers have turned to increasing the number of cores in a CPU \cite{SunAgostini19}. As the number of cores in a CPU grows, shared-memory parallelism in particular becomes necessary in order to take advantage of the growing number of cores \cite{Venu11}.
+
+Motivated by the need of an efficient parallel bi-core decomposition algorithm, we develop in this paper a shared-memory parallel bi-core decomposition algorithm. Our algorithm uses a peeling-based approach, where each round of peeling removes all vertices with the lowest induced degree concurrently from the graph until the graph is empty. We use the classic \emph{work-span} model to analyze the theoretical complexity of our parallel algorithm. In short, the \emph{work} is the total number of operations performed, and the \emph{span} (or the \emph{depth}) is the length of the longest chain of sequential dependencies.
+We prove that our algorithm achieves $\BigO{m^{\frac{3}{2}}}$ work, and because the work complexity matches the time complexity of the best sequential algorithm, our algorithm is \emph{work-efficient}. Our algorithm achieves $\BigO{\rho \log(n)}$ span \textit{w.h.p.}\footnote{w.h.p. stands for \emph{with high probability} (meaning a probability of $1-\frac{C}{n^a}$ for some $C$ and any $a\ge 1$) }. $n$ is the number of vertices. We define $\rho$ to be the bi-core peeling complexity, or the maximum number of rounds of peeling required until the graph is empty. Additionally, our algorithm uses $\BigO{m}$ space. 
+
+Note that $\rho$ is upperbounded by $n$, so our span is $\BigO{\rho \log(n)} = \BigO{n \log(n)}$ \textit{w.h.p.}. In comparison, the parallel algorithm introduced by Liu \textit{et al.} has a span of $\BigO{m}$. Thus, for sufficiently large graphs, our parallel algorithm has better span than Liu \textit{et al.}'s algorithm. Moreover, on real world graphs, we find that $\rho\log(n)$ is generally 2--3 orders of magnitude smaller than $m$ in practice. 
+
+Moreover, we prove the problem of bi-core decomposition to be P-complete. It is as such unlikely that there exists a parallel bi-core decomposition algorithm with polylogarithmic span.
+
+In addition, to allow finding all vertices $v\in (\alpha,\beta)$-core in work linear to the size of the core, we develop a parallel index structure as an extension of Liu \textit{et al.}'s sequential index structure. While Liu \textit{et al.} provided a parallel bi-core decomposition algorithm, they did not provide a parallel index construction algorithm. We provide a work-efficient, $\BigO{\log(n)}$ span algorithm to construct our index structure in parallel and a work-efficient, $\BigO{1}$ span algorithm to perform the query based on the index structure. 
+
+Finally, we implement all of our parallel algorithms and introduce practical optimizations to improve their performance on real-world graphs. We present a comprehensive experimental evaluation of our algorithms on real-world graphs that contain up to hundreds of millions of edges. We compare our experimental results against Liu \textit{et al.}'s parallel and sequential algorithms, which we use as our baselines. Our bi-core decomposition algorithm achieves up to 44x speedup over Liu \textit{et al.}'s sequential algorithm on a machine with 30 cores and two-way hyperthreading. Furthermore, it achieves a 2.9x speedup over their parallel algorithm. Our parallel index query achieves 22.3x speedup over Liu \textit{et al.}'s sequential index query. Overall, we show that our implementations demonstrate good scalability over different numbers of threads and over graphs of different sizes.
+
+In summary, the contributions of our work are as follows.
+\begin{enumerate}
+\item We introduce the first theoretically efficient shared-memory parallel bi-core decomposition algorithm with nontrivial parallelism. We provide an accompanying parallel index construction and query algorithm, and prove that the problem of bi-core decomposition to be P-complete. 
+\item We introduce practical optimizations and provide fast implementations of our parallel algorithms, that outperform the existing state-of-the-art algorithms. Our code is publicly available at \url{https://github.com/clairebookworm/gbbs}.
+\item We perform an extensive empirical evaluation on our algorithms.
+\end{enumerate}
+
+%\begin{comment}
+%\jessica{I don't think this sentence is correct?}
+%There have been prior work on development of parallel algorithms for peeling unipartite graphs, such as graph coloring algorithms or smallest-last ordering \cite{MaBe83}. \michael{is graph coloring peeling?} In contrast, there is little to no such precedence for bi-core peeling. \michael{this doesn't seem to fit the current context? maybe move to earlier?} \jessica{I wouldn't say there is no precedence for bi-core peeling...it's clearly been studied before, and we're not the first to talk about it}
+
+%\textit{(3) Challenges and Considerations} \claire{i see that liu has a challenges and impact list? is that something we should have here?} \jessica{It's not necessary; I'd get rid of this section, especially since you don't have much of value written here}
+%\michael{
+%We developed theoretically-efficient parallel algorithms that run previously serial algorithms in parallel in the hopes to speed up run times. Our algorithms calculate ($\alpha$,$\beta$)-cores that have drastically shorter run times in comparison to serial run times, which can be found in the Experiments section.}
+
+%Parallelization and optimization is obviously fraught with challenges and considerations that must be made, especially with larger graphs. 
+%\end{comment}
+
+%\jessica{Move definitions to prelims -- no need to define a bipartite graph here, or an alpha beta core here; what you want is to instead give a higher level overview on what the main goal is. An idea for a structure is after our introduction in the previous paragraph about dense substructures and bipartite graphs, point out that while there has been extensive prior work focusing on developing fast parallel algorithms for unipartite graph processing, this has not been done for bicore peeling, etc.}
+%\jessica{Also, end with a summary of your main results -- we developed theoretically-efficient parallel algorithms for xyz...etc.}
+
+
+% Start out by talking about motivation -- why should people care about this kind of decomposition, or decompositions in general? List applications + citations for papers that talk about these applications
+% Introduce Liu et al's paper here, in a general way -- make it clear what the state of the most relevant prior work is, and how your work is novel
+% Multicore computation -- shared-memory model; why that's a good thing
+% End intro with summary of your main results
+% Our code is publicly available here: \url{github link}

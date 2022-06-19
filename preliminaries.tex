@@ -1,0 +1,95 @@
+\section{Preliminaries}
+In this section, we provide the definitions and notations that we use throughout this paper.
+
+
+\begin{table}[t]
+\caption{\label{tab:notation}Graph Notation Summary}
+ \begin{tabular}{|| c p{0.75\linewidth} ||} 
+ \hline
+ $G$ & An undirected, simple, bipartite graph \\ & \\
+ $U$ & One bipartition of the vertices in $G$ \\ & \\
+ $V$ & Another bipartition of the vertices in $G$ \\ & \\
+ $\deg(x)$ & Degree or induced degree of a vertex $x$, depending on context \\ & \\
+ $N(x)$ & $x$'s neighbors. In other words, the set of vertices that are adjacent to $x$ \\ & \\
+ $\text{dmax}_v$ & The maximum vertex degree in $V$ \\ & \\
+ $\text{dmax}_u$ & The maximum vertex degree in $U$ \\ & \\
+ $\max_\alpha(\beta)$ & The maximum $\alpha$ value such that $(\alpha,\beta)$-core is nonempty \\ & \\
+ $\max_\beta(\alpha)$ & The maximum $\beta$ value such that
+ $(\alpha,\beta)$-core is nonempty \\ & \\
+ $\delta$ & The maximum $\delta$ value such that $(\delta,\delta)$-core is nonempty. In other words, it is the maximum $k$-core number of the graph $G$. \\
+ \hline 
+\end{tabular}
+\end{table}
+
+% Definitions: graph, model of computation (work-span model)
+\myparagraph{Graph Definitions}
+
+We take every graph to be simple, undirected, and bipartite.
+A \emph{bipartite graph} is a graph $G$ consisting of two mutually exclusive sets of vertices $U$ and $V$, such that every edge connects a vertex in $U$ with a vertex in $V$. In other words, every edge is of the form $(u,v)$ where $u\in U$ and $v\in V$.
+Let $\deg(u)$ denote the degree of a vertex $u$. 
+
+\begin{definition}\label{def:core}
+A bi-core, or an $(\alpha,\beta)$-core,
+is the maximal induced subgraph $G' = (U', V')$ of $G$ such that for every $u\in U'$, the induced degree $\deg(u)\ge \alpha$, and for every $v\in V'$, the induced degree $\deg(v)\ge \beta$. 
+\end{definition}
+
+Note that in this definition, $\deg(u)$ denotes the induced degree of vertex $u$ in the induced subgraph $G'$. For the remainder of this paper, we take $\deg(u)$ to be the vertex $u$'s induced degree in $G'$ instead of in $G$ unless specified.
+
+See Table \ref{tab:notation} for a table of graph notations we use.
+
+Note the two following facts:
+\begin{enumerate}
+    \item if $u\in (\alpha_1,\beta_1)$-core, then $u\in (\alpha_2,\beta_2)$-core if $\alpha_2\le \alpha_1$ and $\beta_2\le \beta_1$. 
+    \item Every nonempty $(\alpha,\beta)$-core must have $\alpha\le\delta$ and/or $\beta\le\delta$.
+\end{enumerate}
+
+We give a quick proof of the second fact here. Assume for the sake of contradiction there exists a nonempty $(\alpha,\beta)$-core with $\alpha>\delta$ and $\beta>\delta$. Then, we know that $(\alpha,\beta)\text{-core} \subseteq (\delta+1,\delta+1)\text{-core}$. Thus, the $(\delta+1,\delta+1)$-core is nonempty and $\delta$ is not the max unipartite $k$-core number of the graph, which is a contradiction. Thus, any nonempty $(\alpha,\beta)$-core must have $\alpha\le\delta$ and/or $\beta\le\delta$.
+
+\myparagraph{Problem Statement}
+We formally define the  bi-core decomposition problem as follows.
+
+\begin{definition}\label{def:problem}
+Given a graph $G$ and values $\alpha, \beta$, return all vertices in the $(\alpha,\beta)$-core of graph $G$ \cite{Liu2020Efficient}. 
+\end{definition}
+
+Similar to Liu \textit{et al.}'s algorithm~\cite{Liu2020Efficient}, our algorithm for this problem involves a process consisting of three stages: bi-core peeling, index building, and bi-core querying.
+%\begin{enumerate}
+%    \item Bi-core Peeling
+%    \item Index Building
+%    \item Bi-core Query
+%\end{enumerate}
+In particular, in the bi-core peeling stage, we compute the $\alpha_{\max}, \beta_{\max}$ values for each vertex as defined below. Given a bipartite graph $G = (V, U)$, for every vertex $u \in U$, we define \emph{$\beta_{\max \alpha}(u)$} for a fixed $\alpha$ to be the maximum $\beta$ value such that $u\in (\alpha,\beta)$-core~\cite{Liu2020Efficient}. Similarly, for $v\in V$, we let \emph{$\alpha_{\max \beta}(v)$} denote, for a fixed $\beta$, the maximum $\alpha$ value such that $v\in (\alpha,\beta)$-core~\cite{Liu2020Efficient}.
+Thus, in the bi-core peeling stage, we compute
+the values $\beta_{\max \alpha}(u)$ for every $\alpha$ and for every $u \in U$, and we compute the values $\alpha_{\max \beta}(v)$ for every $\beta$ and for every $v \in V$. 
+
+
+Note that with these values, one can determine for every vertex $u\in U$ whether or not it is in $(\alpha,\beta)$-core for any $\alpha,\beta$ values. If $\beta_{\text{max}\ \alpha} (u) \ge \beta$, then $u\in (\alpha,\beta)$-core. Similarly, if $\alpha_{\max\ \beta} (v) \ge \alpha$, then $v \in (\alpha,\beta)$-core. 
+
+Then, the index construction stage uses $\alpha_{\max}, \beta_{\max}$ values to construct an index structure that allows queries to be processed in the final query stage. 
+
+\myparagraph{Model of Computation}
+% mention shared-memory parallelism
+We use the shared-memory model of parallel computation, and in particular, we use the classic work-span model for our analysis, which allows us to derive theoretical bounds on the algorithm's running time on $P$ processors. 
+The work of an algorithm is the total number of operations executed, and the span is the length of the longest dependency path~\cite{CLRS}.
+\emph{Brent’s Theorem}~\cite{Brent1974} states that given an algorithm's work $T_1$ and span $T_\infty$, the algorithm's running time on $P$ processors $T_P$ can be bounded by 
+$$ T_P \leq \frac{T_1-T_{\infty}}{P} + T_{\infty} $$
+We assume arbitrary forking for simplicity. In other words, forking $n$ processes has a span of $\BigO{1}$. With the provided model, we show that our algorithm is \emph{work-efficient}, meaning that it has the same work complexity as the best sequential algorithm.
+
+\myparagraph{Parallel Primitives}
+We now define the parallel primitives that we use throughout our algorithms.
+
+\algname{atomic-compare-and-swap$(p,a,b)$} takes as input a pointer $p$ and two values $a,b$. It atomically reads $p$; if its value equals $a$ it then updates the value to $b$. If the update is performed successfully, the function returns true, else it returns false.  
+
+%\algname{slice$(A,a,b)$} takes as input a sequence $A$ and two indices $a$ and $b$. It returns the subsequence of the range $\left[a,b\right)$ of $A$. It is implemented simply by copying in parallel all elements in the range $\left[a,b\right)$ of $A$ to the output array. Therefore, \algname{slice} has work $\BigO{n}$, where $n$ is the length of $A$ and span $\BigO{1}$. \jessica{Why is the slice operation necessary? e.g., why would you have to explicitly copy out?}
+
+\algname{Prefix-Sum$(A)$} takes as input a sequence $A$ and returns a sequence $B$ of the same length such that $B[i] = A[0]\oplus A[1]\oplus A[2]\cdots A[i-2]\oplus A[i-1]$. Here $\oplus$ is a binary associative operator with an identity value denoted by $\varepsilon$. We assume for the rest of the paper that the operator is the addition operator. \algname{Prefix-Sum} has $\BigO{n}$ work and $\BigO{\log(n)}$ span where $n$ is the length of the sequence \cite{CLRS}.
+
+\algname{Suffix-Min$(A)$} is a special case of prefix sum using $\min$ as the operator and it is performed on the reverse of $A$. Specifically, it returns sequence $B$ such that $B[i] = \min(A[i+1],A[i+2],\cdots,A[n])$ where $n$ is the index of $A$'s last element.  
+
+\algname{Reduce-Min$(A)$} takes as input a sequence of length $n$. It returns the minimum element in the sequence. \algname{Reduce-Min} has work $\BigO{n}$ and span $\BigO{\log(n)}$ \cite{CLRS}. 
+
+\algname{Filter$(A, \text{cond})$} takes as input a sequence and a condition for filtering. It retains all items for which the condition is true and then outputs these elements in a sequence, maintaining the original ordering. The function returns a sequence of filtered elements in $\BigO{n}$ work and $\BigO{\log(n)}$ span \cite{CLRS}.
+
+\algname{Histogram$(A)$} takes as input a sequence of indices. It applies a parallel semisort to the indices, which it then uses to create a histogram of the frequencies of each index. It takes $\BigO{n}$ expected work and $\BigO{\log(n)}$ span \textit{w.h.p.} \cite{GuShSuBl15}. We use the parallel semisort by Gu \textit{et al.}~\cite{GuShSuBl15}, and apply \algname{Filter} and \algname{Prefix-Sum} to obtain the occurrence count for each index.
+
+\algname{Radix-Sort$(A)$} takes as input a sequence of elements with an natural ordering defined. It sorts them in parallel with work $\BigO{n}$ and span $\BigO{\log(n)}$ where $n$ is the length of the array~\cite{Rajasekaran89,Blelloch91,shun2012brief,Zagha91}.

@@ -1,0 +1,116 @@
+\section{Sequential Bi-core Decomposition}
+In this section, we present the sequential bi-core peeling algorithm introduced by Liu \textit{et al.}~\cite{Liu2020Efficient} to provide the context for our parallelization in Section \ref{sec:par}. We reiterate that the entirety of this section is not our work.
+%state section 5 is not our work
+
+% mention Liu et al's parallel algorithm and that it's not theorectically efficient.
+\subsection{Sequential Peeling}
+
+% write pseudo code and then reference pseudo code while explaining
+First, we note that the problem of computing the $\alpha_{\max\ \beta}(v)$ values for all $v\in V$ and all $1\le\beta\le \text{dmax}_v$ is symmetric to the problem of finding the $\beta_{\max\ \alpha}(u)$ values for all possible $u$ and $\alpha$. As such, we focus our discussion on the problem of finding the $\alpha_{\max\ \beta}(v)$ values. 
+Note that $\alpha_{\max\ \beta}(v)=\alpha$ if $v\in (\alpha,\beta)$-core but $v\not\in (\alpha+1,\beta)$-core. Thus, a peeling-based algorithm is often used to solve this problem~\cite{AhmedBat07,DingLi17}. In a baseline peeling-based algorithm~\cite{Liu2020Efficient}, we apply a subroutine \algname{peel-fix-$\beta$} for every $\beta'$ between $1$ and $\text{dmax}_v$. \algname{peel-fix-$\beta$} takes as input a fixed $\beta'$ value, and increases the $\alpha$ value of the $(\alpha,\beta')$-core from $1$ to $\max_\alpha(\beta')$. For each ($\alpha$, $\beta'$) pair, it iteratively deletes vertices no longer within the current $(\alpha,\beta')$-core. In other words, for each $\alpha$ from $1$ to $\max_\alpha(\beta')$, the algorithm iteratively peels vertices not in each successive core. When deleting a vertex $v$ to discover the ($\alpha+1$, $\beta'$)-core, we update $\alpha_{\max\ \beta'}\leftarrow \alpha$, because it is the highest $\alpha$ value for which $v\in (\alpha,\beta')$-core. The subroutine \algname{peel-fix-$\alpha$} is symmetric.
+
+\subsection{Computation Sharing}
+
+Liu \textit{et al.} observed that it is unnecessary to repeat the entirety of the peeling process for each possible $\beta'$ value, because we rediscover some of the same information in the symmetric subroutine. Instead, it is sufficient to perform the peeling process for $1\le\beta'\le\delta$. Essentially, when a vertex $u$ is deleted while discovering the $(\alpha + 1, \beta')$-core, we know that $u\in (\alpha,\beta')$-core.
+%The only modification needed is to also update the $\beta_{\max\ \alpha}(u)$ value while deleting a vertex $u$ in the peeling process. When we delete $u$ while increasing the $\alpha$ value to $\alpha+1$, we know that $u\in (\alpha,\beta')$-core.
+Thus, we know that the $\beta_{\max \alpha}(u)$ value is at least $\beta'$. More precisely, because $(i,\beta')$-core $\supseteq (\alpha,\beta)$-core for $i< \alpha$ and thus $u\in (i, \beta')$-core, we can also update $\beta_{\max i}(u)$ to at least $\beta'$, for all $i<\alpha$. Provided that the peeling process is performed for all $1\le\beta'\le \delta$, Liu \textit{et al.} showed that all $\beta_{\max \alpha}(u)$ entries with $\alpha > \delta$ will be updated to their correct values \cite{Liu2020Efficient}.
+
+We give a brief explanation as follows, although further details can be found in their paper. Given $u\in (\alpha,\beta_{\max\ \alpha}(u))$-core and $\alpha>\delta$, we know $\beta_{\max\ \alpha}(u)\le \delta$. Therefore, we must have peeled off $(\alpha,\beta_{\max\ \alpha})$-core in the peeling process and would have recorded that correct $\beta$ value for the entry.
+
+
+\begin{algorithm}[t!]
+  \footnotesize
+\caption{Sequential Baseline 1~\cite{Liu2020Efficient}}
+ \begin{algorithmic}[1]
+ \Procedure{Seq-Bi-core}{G}
+ \State $\delta \leftarrow$ \Call{Par-K-Core}{$G$}
+ \For{$\alpha'=1$ to $\delta$} \label{seq-alg:main-alpha-loop}
+    \State \Call{Peel-Fix-$\alpha$}{$G$, $\alpha'$}
+ \EndFor \label{seq-alg:end-main-alpha-loop}
+ \For{$\beta'=1$ to $\delta$} \label{seq-alg:main-beta-loop}
+    \State \Call{Peel-Fix-$\beta$}{$G$, $\beta'$}
+ \EndFor \label{seq-alg:end-main-beta-loop}
+ \EndProcedure
+ \Procedure{Del-Update}{$G$, $\text{delX}$, $k$}
+ \State $\text{delY} \leftarrow \emptyset$
+ \ForAll{$x$ in $\text{delX}$}
+    \ForAll{$y$ in $N(x)$} 
+        \State $\deg(y)\leftarrow \deg(y) - 1$
+        \If{$\deg(y) < k$}
+            \State add $y$ to $\text{delY}$
+            \State remove $y$ from $G$ \Comment{Or mark $y$ as removed in an array} \label{seq-alg:remove-y}
+        \EndIf
+    \EndFor
+    \State remove $x$ from $G$ \Comment{Or mark $x$ as removed in an array} \label{seq-alg:remove-x}
+ \EndFor
+ \State \Return $\text{delY}$
+ \EndProcedure
+ \Procedure{Peel-Fix-$\beta$}{$G$, $\beta'$}
+  \State \Call{del-update}{$G$, $\{v\in V | \deg(v)<\beta'\}$, $1$} \Comment{Iteratively delete vertices in $V$ with indeced degree less than $\beta'$} \label{seq-alg:delete-v}
+ \While{$U\neq \emptyset$}
+    \State $\text{delU}, \alpha \leftarrow$ \Call{find-min}{$G$} \Comment{Find min induced degree in $U$, store that to $\alpha$, store the set of all $u\in U$ with $\deg(u)\le \alpha$ to $\text{delU}$} \label{findmin}
+    \ForAll{$u$ in $\text{delU}$}
+        \For{$i=1$ to $\alpha$}
+            \State $\beta_{max\ i}(u)\leftarrow \text{max}(\beta_{max\ i}(u),\beta')$
+        \EndFor
+    \EndFor
+    \State $\text{delV} \leftarrow$\Call{del-update}{$G$, $\text{delU}$, $\beta$} \Comment{Peel $U$ up to $\alpha$}\label{peelu}
+    \ForAll{$v$ in $\text{delV}$}
+        \State $\alpha_{max\ \beta'}(u)\leftarrow \alpha$ \Comment{Update $\alpha_{max\ \beta'}$}\label{updatealpha}
+    \EndFor
+ \EndWhile
+ \EndProcedure
+ 
+ \Procedure{Peel-Fix-$\alpha$}{G,$\alpha'$}
+\State symmetric to \algname{Peel-Fix-$\beta$}
+ \EndProcedure
+ \end{algorithmic}
+ \label{alg-seq}
+\end{algorithm}
+
+The pseudocode for Liu \textit{et al.}'s computation sharing algorithm is in Algorithm \ref{alg-seq}. We discuss this pseudocode in more detail.
+On Lines \ref{seq-alg:main-beta-loop}--\ref{seq-alg:end-main-beta-loop} of Algorithm \ref{alg-seq}, we loop over all $1\le\beta'\le\delta$ and run \algname{peel-fix-$\beta$} on each $\beta'$ (note that Lines \ref{seq-alg:main-alpha-loop}--\ref{seq-alg:end-main-alpha-loop} are symmetric for \algname{peel-fix-$\alpha$}). Each iteration of \algname{peel-fix-$\beta$} iteratively removes vertices from $U$ with degree $\le\alpha$ for $\alpha$ from $1$ to $\max_\alpha(\beta')$ for the given $\beta'$. 
+In more detail, 
+on Line \ref{seq-alg:delete-v}, \algname{del-update} iteratively deletes all vertices $v$ with induced degree $\deg(v)<\beta'$, because these vertices are not in any $(\alpha,\beta')$-core for the given $\beta'$. Then, until the graph is empty, we execute Lines 20--26. On Line 20, we find the set of vertices $u \in U$ with the current minimum degree and store them in $\text{delU}$. We let $\alpha$ denote the current minimum degree. At this point, all remaining vertices are in $(\alpha,\beta')$-core. 
+We now continue with the peeling process, and iteratively delete all vertices in $U$ with induced degree $\le \alpha$, which we maintain in the set $\text{delU}$. Lines 21--23 update the $\beta_{\max i}(u)$ values for all $u \in \text{delU}$ and $1\le i\le \alpha$, because as discussed earlier, these $\beta_{\max i}(u)$ are at least $\beta'$. On Line 24, the \algname{del-update} subroutine removes the vertices in $\text{delU}$, which affects the degrees of their neighbors in $V$. If the degrees of these neighbors $v \in V$ fall below
+$\beta'$, this means that each of these vertices $v$ is not in the $(\alpha+1,\beta')$-core. Thus, to continue searching for the next core, we peel these vertices as well and record them in $\text{delV}$. We repeat this peeling process until all vertices in $V$ remaining have induced degree at least $\beta'$.
+We update the $\alpha_{\max\ \beta'}(u)$ values of $\text{delV}$ on Line 26.
+
+Note that when we remove a vertex from $G$, as on Lines \ref{seq-alg:remove-y}--\ref{seq-alg:remove-x}, we do not have to remove the vertex physically. We can maintain an array that tracks whether each vertex is removed and simply mark the vertex as removed in the array. When traversing the graph, we can skip vertices marked as removed in the array.
+
+The \algname{peel-fix-$\alpha$} subroutine is symmetric to \algname{peel-fix-$\beta$}, swapping $\beta'$ with $\alpha'$, $\alpha$ with $\beta$, $V$ with $U$, and $v$ with $u$. 
+
+\myparagraph{Analysis}
+We first discuss the time complexity of \algname{peel-fix-$\beta$}. Note that the combined time of all of the \algname{del-update} subroutines is bounded by $\BigO{m}$.
+This is because these subroutines are called on each vertex at most once, where the vertex is additionally symbolically deleted from the graph.
+For each vertex $x$ we delete, we traverse its neighbors to update their degrees.
+Thus, in total, it incurs $\BigO{m}$ time.
+%Thus each vertex's neighbors will only be traversed once. That gives a runtime of $\BigO{\sum_{x\in {V\text{ or }U}} \text{deg}(i)}=\BigO{m}$ for the part of \algname{del-update}. 
+%In our implementation, we do not modify the graph during peeling but simply mark vertices as deleted. This does not change the complexity because each edge $(u,v)$ can only be traversed twice in each peeling, once when $u$ is peeled and once when $v$ is peeled. 
+Lines 25--26 are bounded by $\BigO{n}$ since there can be at most $n$ updates to $\alpha_{\max \beta'}(v)$ over the entire \algname{Peel-fix-$\beta$} routine. This is because this update is performed at most once for each vertex. Lines 21--23 are also bounded over all invocations by $\BigO{m}$, because the maximal $\alpha$ value is $\BigO{\deg(u)}$, thus giving a total of $\BigO{\sum_{u\in U} \text{deg}(u)}=\BigO{m}$ time. \algname{find-min} can be achieved in $\BigO{\text{dmax}_u}=\BigO{n}$ with a linear search. Thus \algname{peel-fix-$\beta$} runs in $\BigO{m}$ time \cite{Liu2020Efficient} and \algname{peel-fix-$\alpha$} is symmetric.
+
+For the overall peeling procedure \algname{seq-bi-core}, we make $O(\delta)$ calls to subroutines \algname{peel-fix-$\beta$} and \algname{peel-fix-$\alpha$}. Here $\delta$ is the degeneracy of the graph, or the maximal value such that $(\delta,\delta)$-core is nonempty.
+
+Since $\delta$ is bounded by $\BigO{\sqrt{m}}$~\cite{Liu2020Efficient}, Algorithm \ref{alg-seq} runs in $\BigO{\delta m}$, or $\BigO{m^{\frac{3}{2}}}$.
+
+\subsection{Memory-Efficient Bi-core Index}\label{sec:seqindex}
+
+Liu \textit{et al.} also introduced a memory-efficient bi-core indexing structure to allow for efficient queries of $(\alpha,\beta)$-cores. Specifically, their data structure returns the set of all vertices in an $(\alpha,\beta)$-core for a given $(\alpha, \beta)$ in time linear to the size of the core.
+The indexing structure consists of two data structures, $\mathbb{I}^U$ and $\mathbb{I}^V$, where $\mathbb{I}^U$ stores the vertices in $U$ partition, while $\mathbb{I}^V$ stores vertices in $V$ partition. Because these are symmetric, we discuss only $\mathbb{I}^U$ here.
+
+Let $\mathbb{I}^U_{\alpha,\beta}$ be the set of vertices $u\in U$ such that $\beta_{\max \alpha}(u) = \beta$. In other words, $\mathbb{I}^U_{\alpha,\beta}$ is the set of all $u$ that are in the $(\alpha, \beta)$-core but not in the $(\alpha, \beta+1)$-core. Thus, by definition, $\mathbb{I}^U_{\alpha,\beta_1} \cap \mathbb{I}^U_{\alpha,\beta_2} = \emptyset$ for all $\beta_1 \neq \beta_2$. Further, note that if $u\in \mathbb{I}^U_{\alpha,\beta}$, then $u$ is in the $(\alpha, \beta')$-core for all $\beta' \le \beta$. Therefore, the $(\alpha, \beta)$-core is given by $ \bigcup_{i = \beta}^{\max_\beta(\alpha)} \mathbb{I}^U_{\alpha,i}$. $\mathbb{I}^U$ is a lookup table containing all sets $\mathbb{I}^U_{\alpha,\beta}$ that is nonempty, allowing us to access a specific set in $\BigO{1}$ time. Therefore, the operation of taking the union across all sets $\mathbb{I}^U_{\alpha,i}$ for $\beta \le i\le \max_\beta(\alpha)$ is in time linear to the number of vertices in these sets. Thus, we can find all vertices in $(\alpha,\beta)$-core with time complexity linear to the number of vertices in the core. 
+
+Liu \textit{et al.} implemented $\mathbb{I}^U$ as a jagged 2D pointer array with indices corresponding to $\alpha,\beta$ values. Each element of the array with index $\alpha,\beta$ points to the set $\mathbb{I}^U_{\alpha,\beta}$
+
+\myparagraph{Analysis}
+Liu \textit{et al.} showed that the indexing structure takes $\BigO{m}$ space, which we discuss here.
+First, we prove that the size of the 2D dynamic array is proportional to $\BigO{m}$. 
+
+The size of the array is $\sum_{\alpha=1}^{\text{dmax}_u} \max_\beta(\alpha)$, by construction. To bound this value, we can consider the process of constructing the bipartite graph by adding vertices in the $U$ partition while the $V$ partition is already in place. When we add vertex $u_i$, it only affects cores with $\alpha\le u_i$. Since the addition of each vertex can at most increase $\max_\beta(\alpha)$ by $1$, the addition of vertex $u_i$ increases $\sum_{\alpha=1}^{\text{dmax}_u} \max_\beta(\alpha)$ by at most $\BigO{\deg(u_i)}$. Therefore, after the construction process finishes, the space of the array is $\BigO{\sum_{u\in U} \deg(u)} = \BigO{m}$.
+
+Now, we show that the space occupied by all of the vertex sets in $\mathbb{I}^U$ is bounded by $\BigO{m}$.
+
+For each $u\in U$, $u$ exists in $\mathbb{I}^U_{\alpha}$ exactly once for each $\alpha \le \deg(u)$. Thus each $u\in U$ exists in $\mathbb{I}^U$ exactly $\deg(u)$ times. Therefore, the total number of vertices in $\mathbb{I}^U$ is $\BigO{\sum_{u\in U} \deg(u)} = \BigO{m}$. 
+
+Thus, in total, since this argument is symmetric for $\mathbb{I}^V$, Liu \textit{et al.}'s indexing data structure takes $\BigO{m}$ total space.
+

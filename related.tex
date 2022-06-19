@@ -1,0 +1,49 @@
+\section{Related Work}
+% Not Liu et al paper if brought up in intro
+% All other tangentially related work -- prior work on k core, parallel k core, butterfly counting + peeling, general subgraph decomposition type algorithms
+
+% k-core 
+% butterfly peeling, k-clique peeling, nucleus decomposition
+\myparagraph{$K$-core Decomposition} The bi-core decomposition problem is an extension of the well-studied $k$-core decomposition problem, which on general graphs, asks for the largest $k$ for each vertex $v$ such that there exists an induced subgraph containing $v$ where all vertices have induced degree at least $k$. The first efficient sequential algorithm for $k$-core decomposition was given by Matula and Beck~\cite{MaBe83}, and there has been numerous work on parallelizations in both the distributed memory and shared memory settings~\cite{Dasari2014,Kabir2017,MonDe13,TriHoh18,DhBlSh17}.
+
+
+\myparagraph{Other Dense Subgraph Decompositions}
+$k$-clique decomposition, $k$-truss, and $(r, s)$-nucleus decomposition are all extensions of the $k$-core decomposition that focus on higher order substructures in order to discover dense substructures in a graph. $k$-clique decomposition~\cite{Tsour15,shi2020parallel} involves computing the $k$-clique core number of each vertex $v$, or the largest $c$ such that there exists an induced subgraph containing $v$ where all vertices are incident upon at least $c$ induced $k$-cliques.
+$k$-truss is a classic extension~\cite{Cohen08,ZhaoTung12,ZhangPar12,WangCheng12,KaMad17,SarSe18,AlmAn19} that asks for the largest $k$ for each edge $e$ such that there exists an induced subgraph containing $e$ where all edges are contained within at least $k$ triangles. Notably, the $k$-core and $k$-truss decompositions are part of the MIT GraphChallenge~\cite{GraphChallenge}, demonstrating their practical importance and popularity. The $(r, s)$-nucleus decomposition~\cite{SarErd15, SarErd17} further generalizes the $k$-clique and $k$-truss decompositions, by asking for the largest $k$ for each $r$-clique such that there exists an induced subgraph containing the $r$-clique in which all $r$-cliques are contained within at least $k$ induced $s$-cliques. Notably, $k$-clique decomposition is $(1, k)$-nucleus decomposition, and $k$-truss is $(2, 3)$-nucleus decomposition.
+
+\myparagraph{Generalization of Decomposition Algorithms to Bipartite Graphs}
+Another direction of current work focuses on generalizing these unipartite decomposition algorithms to bipartite graphs by focusing on other higher order structures available in bipartite graphs. Zou \cite{ZouZhao16} and Sar\i{}y\"{u}ce and Pinar \cite{SaPi18} defined $k$-tip and $k$-wing decomposition on bipartite graphs. $k$-tip 
+decomposition asks for the largest $k$ for each vertex $v$ such that there exists an induced subgraph in which every vertex is incident to at least $k$ induced $(2,2)$-bicliques.
+Similarly, $k$-wing decomposition asks for the largest $k$ for each edge $e$ such that there exists an induced subgraph in which every edge is incident to at least $k$ induced $(2,2)$-bicliques. Multiple sequential~\cite{Sanei-MehriST18,ZouZhao16,SaPi18,Wang2012,WaKai20,WangLin21} and parallel~\cite{ShiShun20,TopDown} algorithms have been developed for $k$-tip and $k$-wing decomposition.
+
+Ahmed \textit{et al.} proposed the $(\alpha,\beta)$-core decomposition problem, or the bi-core decomposition problem and gave the first sequential bi-core algorithm~\cite{AhmedBat07}. Ding \textit{et al.} applied bi-core to recommender systems and provided a sequential bi-core algorithm based on the classic $k$-core peeling algorithm~\cite{DingLi17}. Liu \textit{et al.} developed an efficient computation sharing sequential bi-core peeling algorithm and a memory-efficient indexing structure to store the bi-cores for efficient membership queries from vertices~\cite{Liu2020Efficient}. Wang \textit{et al.} extended the problem to weighted bipartite graphs to find the bi-core component with the highest minimum edge weight containing a given query vertex~\cite{WangZhang20}. 
+
+% \begin{comment}
+% \subsection{Old Material}
+% The bi-core decomposition problem is an extension of the $k$-core decomposition problem, which is well-studied, with the first efficient sequential algorithm given by Matula and Beck~\cite{MaBe83}. Parallel algorithms for $k$-core decomposition have also been intensely studied (e.g., \cite{Dasari2014,dhulipala2017julienne,Kabir2017,MonDe13,TriHoh18,DhBlSh17}) in multiple settings including distributed memory~\cite{MonDe13} and shared memory~\cite{DhBlSh17}.
+ 
+% Further generalizations of the $k$-core decomposition have also been developed and well-studied, including $k$-truss~\cite{WangCheng12,KaMad17} \jessica{I think there are more k-truss citations you could drop here}, $(r, s)$-nucleus decomposition~\cite{SarErd15, SarErd17}, and $k$-clique peeling~\cite{Tsour15}, which capture higher order structures in general graphs. Notably, $k$-clique peeling provides an approximation to the $k$-clique densest subgraph problem \cite{Tsour15}.
+% %can be generalized to $k$-truss problem, nucleus decomposition problem, and $k$-clique denset subgraph problem, all serving similar practical and theoretical purposes.
+% %Wang and Cheng gave one of the sequential algorithms for $k$-truss; Kabir and Madduri gave a parallel algorithm\cite{WangCheng12,KaMad17}. The nucleus decomposition problem is proposed by Sariyuce \textit{et al.}\cite{SarErd15}. A parallel algorithm for the problem was also given by Sariyuce\cite{SarErd17}. 
+
+
+% The counterpart to bi-core decomposition for unipartite graphs is the $k$-core decomposition algorithm, which was first given by 
+% Matula and Beck~\cite{MaBe83}. Dhulipala \textit{et al.} developed a \jessica{I'm not convinced it's the first} shared-memory parallel work-efficient $k$-core decomposition algorithm with nontrivial parallelism~\cite{DhBlSh17}. Instead of peeling vertex by vertex, all vertices with the same degree are peeled concurrently, thus resulting in linear work. \jessica{I don't think you have to include the span (and then you won't have to define rho)}
+% \jessica{Remember to cite the many other works on k-core, and this could be a good place to also mention the generalizations such as nucleus decomposition and k-truss, and you can cite some of the MIT graph challenge papers as well / mention MIT graph challenge (https://graphchallenge.mit.edu/champions)}
+
+% \jessica{I think this paragraph would be better structured if you talked about it from the perspective of, substructures in bipartite graphs; while tip decomposition can apply to unipartite graphs, I think this is the distinction that you're trying to draw, that there is prior work focusing on bipartite graphs. A more natural flow would be to first introduce serial tip decomposition as a different kind of generalization of clique peeling, specifically for bipartite graphs, and then introduce the parallelizations. I think it's already pointed out in the intro that there is no existing parallelization of bicore decomposition, so we don't have to repeat it here.}
+% While there lacks prior work on parallel $(\alpha,\beta)$ core decomposition (or bi-core decomposition), there has been efforts to parallelize tip decomposition (decomposition based on number of $(2,2)$-bicliques a vertex is contained within). Sariyuce and Pinar gave a sequential algorithm for $(2,2)$-biclique peeling, and Wang \textit{et al.} provided a practically efficient algorithm \jessica{I don't think Wang et al's work was theoretically efficient? Maybe clarify if you mean practically efficient} \cite{SaPi18,WaKai20}. Shi and Shun gave a work-efficient parallel bottom-up tip decomposition algorithm, which peels a bucket of vertices \jessica{I don't think you have to describe to this detail here (and also this is too general to be helpful, since it's unclear in which direction you're peeling vertices -- you could describe top-down as peeling vertices too)} and update their $(2,2)$-biclique counts in parallel \cite{ShSh19}. They used a parallel Fibonacci heap \jessica{I think talking about the Fibonacci heap is too much detail here} to obtain the next minimum-$(2,2)$-biclique-count bucket of vertices. On the other hand, Lakhotia \textit{et al.} gave a top-down parallel tip decomposition algorithm, which is not work-efficient but performs well in practice \cite{TopDown}.
+
+% Another related problem which saw parallelization efforts is the $k$-clique counting and $k$-clique denset subgraph problem. The most efficient sequential $k$-clique counting algorithm was developed by Chiba and Nishizeki, $\cite{ChNi85}$. Tsourakakis, on the other hand, introduced $k$-clique denset subgraph problem for data mining and gave a sequential algorithm. Shi \textit{et al.} gave provably efficient parallel algorithms for both of these problems \cite{Shi2020ParallelCC}. 
+
+% \jessica{Some other info to include here: Talk about the $k$-clique densest subgraph problem by Tsourakakis (http://people.seas.harvard.edu/~babis/kcliqueDSP.pdf), talk about other parallel k-core work (see the related works section here: https://arxiv.org/pdf/2106.03824.pdf -- you can import the same references and reference them in the same way), and you should also talk about nucleus decomposition / k-truss (also referenced in the related works of the previous paper)}
+
+% \jessica{I think I left this comment here before -- remember to delete when you've made the change (not sure if this appears in the rest of the paper)}
+% Shi \textit{et al.} \cite{Shi2020ParallelCC} instead of Shi, Dhulipala, and Shun
+% 2 ppl -- always name with "and"
+% 1 person -- always name
+% >= 3 people -- use et al.
+
+% %cite again when too far away
+
+% \end{comment}

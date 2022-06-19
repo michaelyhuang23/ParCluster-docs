@@ -1,0 +1,143 @@
+\documentclass[sigconf, nonacm]{acmart} %manuscript
+% \documentclass[manuscript, nonacm]{acmart} 
+\setcopyright{none}
+%\documentclass[11pt,twoside,a4paper]{article}
+%\usepackage{subfig}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+
+\usepackage{pgfplots}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+
+% \usepackage{fontspec}
+% \setmainfont{Garamond}
+
+
+% Keywords command
+%\title{MIND-BIG: Mining Dense Subgraphs in Bipartite Graphs in Parallel}
+\title{Theoretically Efficient Parallel Density-Peak Clustering}
+% \subtitle{PRIMES Final Research Paper \newline 
+% December 31, 2021}
+
+
+\author{Yihao Huang}
+\affiliation{%
+  \institution{Phillips Academy\\ yhuang23@andover.edu}
+}
+
+
+\usepackage{xy}
+\usepackage{tikz}
+\usepackage{mathrsfs}
+\usepackage{setspace,dsfont,graphicx,makecell,appendix,multirow,float}
+\pgfplotsset{compat=1.17}
+
+\usepackage{bbm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{times}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{dblfloatfix}
+%\usepackage{enumitem}
+%\setlist{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
+\usepackage{xspace}
+%\usepackage{algorithmicx}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{subcaption,graphicx,url,multicol,mathtools}
+\usepackage{paralist}
+\usepackage{color}
+\usepackage{arydshln}
+\usepackage[most]{tcolorbox}
+\usepackage{stmaryrd}
+\usepackage{bm}
+\graphicspath{ {./figures/} }
+
+\newcommand{\BigO}[1]{\ensuremath{O(#1)}}
+\newcommand{\BigOmega}[1]{\ensuremath{\Omega(#1)}}
+\newcommand{\slfrac}[2]{\left.#1\middle/#2\right.}
+\newcommand{\Var}[1]{\operatorname{Var}\left[#1\right]}
+\newcommand{\whp}[1]{w.h.p.}
+\newcommand{\algname}[1]{\textnormal{\textsc{#1}}}
+
+
+% declaration of the new block
+\algblock{ParFor}{EndParFor}
+% customising the new block
+\algnewcommand\algorithmicparfor{\textbf{parfor}}
+\algnewcommand\algorithmicpardo{\textbf{do}}
+\algnewcommand\algorithmicendparfor{}%\textbf{end\ parfor}
+\algrenewtext{ParFor}[1]{\algorithmicparfor\ #1\ \algorithmicpardo}
+\algrenewtext{EndParFor}{\algorithmicendparfor}
+\algtext*{EndParFor}
+
+\algdef{SE}[DOWHILE]{Do}{doWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}%
+
+\makeatletter
+\newtheorem*{rep@theorem}{\rep@title}
+\newcommand{\newreptheorem}[2]{%
+\newenvironment{rep#1}[1]{%
+ \def\rep@title{#2 \ref{##1}}%
+ \begin{rep@theorem}}%
+ {\end{rep@theorem}}}
+\makeatother
+
+\newtheorem{theorem}{Theorem}
+\newcommand{\myparagraph}[1]{\noindent {\bf #1.}}
+\usepackage{comment}
+
+\newcommand{\shangdi}[1]{{\color{blue}{\bf Shangdi:} #1}}
+\newcommand{\michael}[1]{{\color{purple}{\bf Michael:} #1}}
+
+\begin{document}
+
+
+\input{abstract}
+
+\keywords{parallel computing, clustering, density-peak, unsupervised learning}
+
+
+\maketitle
+
+% \clearpage
+
+% \tableofcontents
+
+% \clearpage
+
+
+%\onecolumn
+
+%By June 1, all students will be expected to submit their interim
+%research report. We think of the interim research report as the first
+%draft of a research paper, which includes an introduction (motivation
+%for the project, basic background, and an overview of previous work) and
+%a presentation of interim project results, conjectures, and plans for
+%further work. The length should be about 10 pp. 
+
+\input{intro}
+\input{related}
+\input{preliminaries}
+
+\input{liusequential}
+%then Liu's paper (full explanation + pseudo code)
+\input{parallel}
+
+\input{parindex}
+%parallelization explanation
+\input{experiments}
+
+\input{conclusion}
+
+\section*{Acknowledgements}
+
+We would like to thank Jessica Shi and Professor Julian Shun (MIT CSAIL) for their amazing support and guidance throughout the year. In addition, we thank the MIT PRIMES organization for this opportunity. 
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,780 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{53}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[\protect\citeauthoryear{Ahmed, Batagelj, Fu, Hong, Merrick, and
+  Mrvar}{Ahmed et~al\mbox{.}}{2007}]%
+        {AhmedBat07}
+\bibfield{author}{\bibinfo{person}{Adel Ahmed}, \bibinfo{person}{Vladimir
+  Batagelj}, \bibinfo{person}{Xiaoyan Fu}, \bibinfo{person}{Seok-hee Hong},
+  \bibinfo{person}{Damian Merrick}, {and} \bibinfo{person}{Andrej Mrvar}.}
+  \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{Visualisation and analysis of the internet movie
+  database}. In \bibinfo{booktitle}{\emph{2007 6th International Asia-Pacific
+  Symposium on Visualization}}. \bibinfo{pages}{17--24}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/APVIS.2007.329304}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Almasri, Anjum, Pearson, Qureshi, Mailthody,
+  Nagi, Xiong, and Hwu}{Almasri et~al\mbox{.}}{2019}]%
+        {AlmAn19}
+\bibfield{author}{\bibinfo{person}{Mohammad Almasri}, \bibinfo{person}{Omer
+  Anjum}, \bibinfo{person}{Carl Pearson}, \bibinfo{person}{Zaid Qureshi},
+  \bibinfo{person}{Vikram~S. Mailthody}, \bibinfo{person}{Rakesh Nagi},
+  \bibinfo{person}{Jinjun Xiong}, {and} \bibinfo{person}{Wen-mei Hwu}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Update on k-truss Decomposition on GPU}. In
+  \bibinfo{booktitle}{\emph{2019 IEEE High Performance Extreme Computing
+  Conference (HPEC)}}. \bibinfo{pages}{1--7}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/HPEC.2019.8916285}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Anderson and Mayr}{Anderson and Mayr}{1984}]%
+        {Anderson84}
+\bibfield{author}{\bibinfo{person}{Richard~J. Anderson} {and}
+  \bibinfo{person}{Ernst~W. Mayr}.} \bibinfo{year}{1984}\natexlab{}.
+\newblock \showarticletitle{A P-complete problem and approximations to it}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Beutel, Xu, Guruswami, Palow, and
+  Faloutsos}{Beutel et~al\mbox{.}}{2013}]%
+        {BeuXu13}
+\bibfield{author}{\bibinfo{person}{Alex Beutel}, \bibinfo{person}{Wanhong Xu},
+  \bibinfo{person}{Venkatesan Guruswami}, \bibinfo{person}{Christopher Palow},
+  {and} \bibinfo{person}{Christos Faloutsos}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{CopyCatch: Stopping Group Attacks by Spotting
+  Lockstep Behavior in Social Networks}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 22nd International Conference on
+  World Wide Web}} \emph{(\bibinfo{series}{WWW '13})}.
+  \bibinfo{publisher}{Association for Computing Machinery},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{119–130}.
+\newblock
+\showISBNx{9781450320351}
+\urldef\tempurl%
+\url{https://doi.org/10.1145/2488388.2488400}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Blelloch, Leiserson, Maggs, Plaxton, Smith,
+  and Zagha}{Blelloch et~al\mbox{.}}{1991}]%
+        {Blelloch91}
+\bibfield{author}{\bibinfo{person}{Guy~E. Blelloch},
+  \bibinfo{person}{Charles~E. Leiserson}, \bibinfo{person}{Bruce~M. Maggs},
+  \bibinfo{person}{C.~Greg Plaxton}, \bibinfo{person}{Stephen~J. Smith}, {and}
+  \bibinfo{person}{Marco Zagha}.} \bibinfo{year}{1991}\natexlab{}.
+\newblock \showarticletitle{A Comparison of Sorting Algorithms for the
+  Connection Machine CM-2}. In \bibinfo{booktitle}{\emph{Proceedings of the
+  Third Annual ACM Symposium on Parallel Algorithms and Architectures}}
+  \emph{(\bibinfo{series}{SPAA '91})}. \bibinfo{publisher}{Association for
+  Computing Machinery}, \bibinfo{address}{New York, NY, USA},
+  \bibinfo{pages}{3–16}.
+\newblock
+\showISBNx{0897914384}
+\urldef\tempurl%
+\url{https://doi.org/10.1145/113379.113380}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Brent}{Brent}{1974}]%
+        {Brent1974}
+\bibfield{author}{\bibinfo{person}{Richard~P. Brent}.}
+  \bibinfo{year}{1974}\natexlab{}.
+\newblock \showarticletitle{The Parallel Evaluation of General Arithmetic
+  Expressions}.
+\newblock \bibinfo{journal}{\emph{J. ACM}} \bibinfo{volume}{21},
+  \bibinfo{number}{2} (\bibinfo{date}{April} \bibinfo{year}{1974}),
+  \bibinfo{pages}{201--206}.
+\newblock
+\showISSN{0004-5411}
+
+
+\bibitem[\protect\citeauthoryear{Cerinšek and Batagelj}{Cerinšek and
+  Batagelj}{2015}]%
+        {MonVla15}
+\bibfield{author}{\bibinfo{person}{Monika Cerinšek} {and}
+  \bibinfo{person}{Vladimir Batagelj}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Generalized two-mode cores}.
+\newblock \bibinfo{journal}{\emph{Social Networks}}  \bibinfo{volume}{42}
+  (\bibinfo{year}{2015}), \bibinfo{pages}{80--87}.
+\newblock
+\showISSN{0378-8733}
+\urldef\tempurl%
+\url{https://doi.org/10.1016/j.socnet.2015.04.001}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Cohen}{Cohen}{2008}]%
+        {Cohen08}
+\bibfield{author}{\bibinfo{person}{Jonathan Cohen}.}
+  \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Trusses: Cohesive Subgraphs for Social Network
+  Analysis}.
+\newblock  (\bibinfo{year}{2008}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Cormen, Leiserson, Rivest, and Stein}{Cormen
+  et~al\mbox{.}}{2009}]%
+        {CLRS}
+\bibfield{author}{\bibinfo{person}{Thomas~H. Cormen},
+  \bibinfo{person}{Charles~E. Leiserson}, \bibinfo{person}{Ronald~L. Rivest},
+  {and} \bibinfo{person}{Clifford Stein}.} \bibinfo{year}{2009}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Introduction to Algorithms (3. ed.)}}.
+\newblock \bibinfo{publisher}{MIT Press}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Dasari, Desh, and Zubair}{Dasari
+  et~al\mbox{.}}{2014}]%
+        {Dasari2014}
+\bibfield{author}{\bibinfo{person}{N.~S. Dasari}, \bibinfo{person}{R. Desh},
+  {and} \bibinfo{person}{M. Zubair}.} \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{{ParK}: An efficient algorithm for $k$-core
+  decomposition on multicore processors}. In \bibinfo{booktitle}{\emph{IEEE
+  International Conference on Big Data}}. \bibinfo{pages}{9--16}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Dhulipala, Blelloch, and Shun}{Dhulipala
+  et~al\mbox{.}}{2017}]%
+        {DhBlSh17}
+\bibfield{author}{\bibinfo{person}{Laxman Dhulipala}, \bibinfo{person}{Guy
+  Blelloch}, {and} \bibinfo{person}{Julian Shun}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Julienne: A Framework for Parallel Graph Algorithms
+  Using Work-efficient Bucketing}. In \bibinfo{booktitle}{\emph{ACM Symposium
+  on Parallelism in Algorithms and Architectures (SPAA)}}.
+  \bibinfo{pages}{293--304}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Dhulipala, Blelloch, and Shun}{Dhulipala
+  et~al\mbox{.}}{2018}]%
+        {DhBlSh18}
+\bibfield{author}{\bibinfo{person}{Laxman Dhulipala}, \bibinfo{person}{Guy~E.
+  Blelloch}, {and} \bibinfo{person}{Julian Shun}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Theoretically Efficient Parallel Graph Algorithms
+  Can Be Fast and Scalable}. In \bibinfo{booktitle}{\emph{ACM Symposium on
+  Parallelism in Algorithms and Architectures (SPAA)}}.
+  \bibinfo{pages}{393--404}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Dhulipala, Shi, Tseng, Blelloch, and
+  Shun}{Dhulipala et~al\mbox{.}}{2020}]%
+        {dhulipala20}
+\bibfield{author}{\bibinfo{person}{Laxman Dhulipala}, \bibinfo{person}{Jessica
+  Shi}, \bibinfo{person}{Tom Tseng}, \bibinfo{person}{Guy~E. Blelloch}, {and}
+  \bibinfo{person}{Julian Shun}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{The Graph Based Benchmark Suite (GBBS)}
+  \emph{(\bibinfo{series}{GRADES-NDA'20})}. \bibinfo{publisher}{Association for
+  Computing Machinery}, \bibinfo{address}{New York, NY, USA}, Article
+  \bibinfo{articleno}{11}, \bibinfo{numpages}{8}~pages.
+\newblock
+\showISBNx{9781450380218}
+\urldef\tempurl%
+\url{https://doi.org/10.1145/3398682.3399168}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Ding, Li, Huang, and Mamoulis}{Ding
+  et~al\mbox{.}}{2017}]%
+        {DingLi17}
+\bibfield{author}{\bibinfo{person}{Danhao Ding}, \bibinfo{person}{Hui Li},
+  \bibinfo{person}{Zhipeng Huang}, {and} \bibinfo{person}{Nikos Mamoulis}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Efficient Fault-Tolerant Group Recommendation Using
+  Alpha-Beta-Core}. In \bibinfo{booktitle}{\emph{Proceedings of the 2017 ACM on
+  Conference on Information and Knowledge Management}}
+  \emph{(\bibinfo{series}{CIKM '17})}. \bibinfo{publisher}{Association for
+  Computing Machinery}, \bibinfo{address}{New York, NY, USA},
+  \bibinfo{pages}{2047–2050}.
+\newblock
+\showISBNx{9781450349185}
+\urldef\tempurl%
+\url{https://doi.org/10.1145/3132847.3133130}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Fang, Huang, Qin, Zhang, Zhang, Cheng, and
+  Lin}{Fang et~al\mbox{.}}{2019}]%
+        {Fang2019survey}
+\bibfield{author}{\bibinfo{person}{Yixiang Fang}, \bibinfo{person}{Xin Huang},
+  \bibinfo{person}{Lu Qin}, \bibinfo{person}{Ying Zhang},
+  \bibinfo{person}{Wenjie Zhang}, \bibinfo{person}{Reynold Cheng}, {and}
+  \bibinfo{person}{Xuemin Lin}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \bibinfo{title}{A Survey of Community Search Over Big Graphs}.
+\newblock
+\newblock
+\showeprint[arxiv]{cs.DB/1904.12539}
+
+
+\bibitem[\protect\citeauthoryear{Fionda, Palopoli, Panni, and Rombo}{Fionda
+  et~al\mbox{.}}{2007}]%
+        {Fionda2007}
+\bibfield{author}{\bibinfo{person}{Valeria Fionda}, \bibinfo{person}{Luigi
+  Palopoli}, \bibinfo{person}{Simona Panni}, {and} \bibinfo{person}{Simona~E.
+  Rombo}.} \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{Bi-grappin: bipartite graph based protein-protein
+  interaction network similarity search}. In \bibinfo{booktitle}{\emph{2007
+  IEEE International Conference on Bioinformatics and Biomedicine (BIBM
+  2007)}}. \bibinfo{pages}{355--361}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/BIBM.2007.13}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Garcia-Algarra, Pastor, Mouronte, and
+  Galeano}{Garcia-Algarra et~al\mbox{.}}{2017}]%
+        {Algarra2013}
+\bibfield{author}{\bibinfo{person}{J. Garcia-Algarra}, \bibinfo{person}{J.~M.
+  Pastor}, \bibinfo{person}{M.~L. Mouronte}, {and} \bibinfo{person}{J.
+  Galeano}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{A structural approach to disentangle the
+  visualization of bipartite biological networks}.
+\newblock \bibinfo{journal}{\emph{bioRxiv}} (\bibinfo{year}{2017}).
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1101/192013}
+\showDOI{\tempurl}
+\showeprint{https://www.biorxiv.org/content/early/2017/11/21/192013.full.pdf}
+
+
+\bibitem[\protect\citeauthoryear{{GraphChallenge}}{{GraphChallenge}}{[n.d.]}]%
+        {GraphChallenge}
+{GraphChallenge} \bibinfo{year}{[n.d.]}\natexlab{}.
+\newblock \bibinfo{title}{{GraphChallenge}}.
+\newblock
+\newblock
+\newblock
+\shownote{\url{http://graphchallenge.mit.edu/}.}
+
+
+\bibitem[\protect\citeauthoryear{Gu, Shun, Sun, and Blelloch}{Gu
+  et~al\mbox{.}}{2015}]%
+        {GuShSuBl15}
+\bibfield{author}{\bibinfo{person}{Yan Gu}, \bibinfo{person}{Julian Shun},
+  \bibinfo{person}{Yihan Sun}, {and} \bibinfo{person}{Guy~E. Blelloch}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{A Top-Down Parallel Semisort}. In
+  \bibinfo{booktitle}{\emph{ACM Symposium on Parallelism in Algorithms and
+  Architectures (SPAA)}}. \bibinfo{pages}{24--34}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Kabir and Madduri}{Kabir and Madduri}{2017a}]%
+        {Kabir2017}
+\bibfield{author}{\bibinfo{person}{H. Kabir} {and} \bibinfo{person}{K.
+  Madduri}.} \bibinfo{year}{2017}\natexlab{a}.
+\newblock \showarticletitle{Parallel $k$-Core Decomposition on Multicore
+  Platforms}. In \bibinfo{booktitle}{\emph{IEEE International Parallel and
+  Distributed Processing Symposium Workshops (IPDPSW)}}.
+  \bibinfo{pages}{1482--1491}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Kabir and Madduri}{Kabir and Madduri}{2017b}]%
+        {KaMad17}
+\bibfield{author}{\bibinfo{person}{Humayun Kabir} {and} \bibinfo{person}{Kamesh
+  Madduri}.} \bibinfo{year}{2017}\natexlab{b}.
+\newblock \showarticletitle{Parallel k-truss decomposition on multicore
+  systems}. In \bibinfo{booktitle}{\emph{2017 IEEE High Performance Extreme
+  Computing Conference (HPEC)}}. \bibinfo{pages}{1--7}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/HPEC.2017.8091052}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Kunegis}{Kunegis}{2013}]%
+        {Kunegis13}
+\bibfield{author}{\bibinfo{person}{Jérôme Kunegis}.}
+  \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{{KONECT}: the {K}oblenz network collection}.
+\newblock \bibinfo{journal}{\emph{International Conference on World Wide Web}},
+  \bibinfo{pages}{1343--1350}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Lakhotia, Kannan, Prasanna, and
+  De~Rose}{Lakhotia et~al\mbox{.}}{2020}]%
+        {TopDown}
+\bibfield{author}{\bibinfo{person}{Kartik Lakhotia}, \bibinfo{person}{Rajgopal
+  Kannan}, \bibinfo{person}{Viktor Prasanna}, {and} \bibinfo{person}{Cesar
+  A.~F. De~Rose}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Receipt: Refine Coarse-Grained Independent Tasks
+  for Parallel Tip Decomposition of Bipartite Graphs}.
+\newblock \bibinfo{journal}{\emph{Proc. VLDB Endow.}} \bibinfo{volume}{14},
+  \bibinfo{number}{3} (\bibinfo{date}{Nov.} \bibinfo{year}{2020}),
+  \bibinfo{pages}{404–417}.
+\newblock
+\showISSN{2150-8097}
+
+
+\bibitem[\protect\citeauthoryear{Liu, Yuan, Lin, Qin, Zhang, and Zhou}{Liu
+  et~al\mbox{.}}{2020}]%
+        {Liu2020Efficient}
+\bibfield{author}{\bibinfo{person}{Boge Liu}, \bibinfo{person}{L. Yuan},
+  \bibinfo{person}{Xuemin Lin}, \bibinfo{person}{Lu Qin}, \bibinfo{person}{W.
+  Zhang}, {and} \bibinfo{person}{Jingren Zhou}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Efficient $(\alpha, \beta)$-core computation in
+  bipartite graphs}.
+\newblock \bibinfo{journal}{\emph{VLDB J.}}  \bibinfo{volume}{29}
+  (\bibinfo{year}{2020}), \bibinfo{pages}{1075--1099}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Matula and Beck}{Matula and Beck}{1983}]%
+        {MaBe83}
+\bibfield{author}{\bibinfo{person}{David~W. Matula} {and}
+  \bibinfo{person}{Leland~L. Beck}.} \bibinfo{year}{1983}\natexlab{}.
+\newblock \showarticletitle{Smallest-last Ordering and Clustering and Graph
+  Coloring Algorithms}.
+\newblock \bibinfo{journal}{\emph{J. ACM}} \bibinfo{volume}{30},
+  \bibinfo{number}{3} (\bibinfo{date}{July} \bibinfo{year}{1983}),
+  \bibinfo{pages}{417--427}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Montresor, De~Pellegrini, and
+  Miorandi}{Montresor et~al\mbox{.}}{2013}]%
+        {MonDe13}
+\bibfield{author}{\bibinfo{person}{Alberto Montresor},
+  \bibinfo{person}{Francesco De~Pellegrini}, {and} \bibinfo{person}{Daniele
+  Miorandi}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Distributed k-Core Decomposition}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Parallel and Distributed
+  Systems}} \bibinfo{volume}{24}, \bibinfo{number}{2} (\bibinfo{year}{2013}),
+  \bibinfo{pages}{288--300}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/TPDS.2012.124}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Pavlopoulos, Kontou, Pavlopoulou, Bouyioukos,
+  Markou, and Bagos}{Pavlopoulos et~al\mbox{.}}{2018}]%
+        {Pavlopoulos2016}
+\bibfield{author}{\bibinfo{person}{Georgios~A Pavlopoulos},
+  \bibinfo{person}{Panagiota~I Kontou}, \bibinfo{person}{Athanasia
+  Pavlopoulou}, \bibinfo{person}{Costas Bouyioukos}, \bibinfo{person}{Evripides
+  Markou}, {and} \bibinfo{person}{Pantelis~G Bagos}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{Bipartite graphs in systems biology and medicine:
+  a survey of methods and applications}}.
+\newblock \bibinfo{journal}{\emph{GigaScience}} \bibinfo{volume}{7},
+  \bibinfo{number}{4} (\bibinfo{date}{02} \bibinfo{year}{2018}).
+\newblock
+\showISSN{2047-217X}
+\urldef\tempurl%
+\url{https://doi.org/10.1093/gigascience/giy014}
+\showDOI{\tempurl}
+\newblock
+\shownote{giy014.}
+
+
+\bibitem[\protect\citeauthoryear{Rajasekaran and Reif}{Rajasekaran and
+  Reif}{1989}]%
+        {Rajasekaran89}
+\bibfield{author}{\bibinfo{person}{Sanguthevar Rajasekaran} {and}
+  \bibinfo{person}{John~H. Reif}.} \bibinfo{year}{1989}\natexlab{}.
+\newblock \showarticletitle{Optimal and Sublogarithmic Time Randomized Parallel
+  Sorting Algorithms}.
+\newblock \bibinfo{journal}{\emph{SIAM J. Comput.}} \bibinfo{volume}{18},
+  \bibinfo{number}{3} (\bibinfo{year}{1989}), \bibinfo{pages}{594--607}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1137/0218041}
+\showDOI{\tempurl}
+\showeprint{https://doi.org/10.1137/0218041}
+
+
+\bibitem[\protect\citeauthoryear{Reece, Meyers, Urry, Cain, Wasserman,
+  Minorsky, Jackson, Cooke, and Campbell}{Reece et~al\mbox{.}}{2015}]%
+        {CampbellBio}
+\bibfield{author}{\bibinfo{person}{Jane~B. Reece}, \bibinfo{person}{Noel
+  Meyers}, \bibinfo{person}{Lisa~A. Urry}, \bibinfo{person}{Michael~L. Cain},
+  \bibinfo{person}{Steven~A. Wasserman}, \bibinfo{person}{Peter~V. Minorsky},
+  \bibinfo{person}{Robert~B. Jackson}, \bibinfo{person}{Bernard~J. Cooke},
+  {and} \bibinfo{person}{Neil~A. Campbell}.} \bibinfo{year}{2015
+  2015}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Campbell biology / Jane B. Reece, Noel
+  Meyers, Lisa A. Urry, Michael L. Cain, Steven A. Wasserman, Peter V.
+  Minorsky, Robert B. Jackson, Bernard Cooke} (\bibinfo{edition}{tenth edition.
+  australian and new zealand version.} ed.)}.
+\newblock \bibinfo{publisher}{Pearson Frenchs Forest, NSW}. xliv, 1315, A--49,
+  B--1, C--1, D--1, E--2, F--3, CR--10, G--37, I--54 pages : pages.
+\newblock
+\showISBNx{9781486007042}
+
+
+\bibitem[\protect\citeauthoryear{Sanei{-}Mehri, Sariy{\"{u}}ce, and
+  Tirthapura}{Sanei{-}Mehri et~al\mbox{.}}{2018}]%
+        {Sanei-MehriST18}
+\bibfield{author}{\bibinfo{person}{Seyed{-}Vahid Sanei{-}Mehri},
+  \bibinfo{person}{Ahmet~Erdem Sariy{\"{u}}ce}, {and} \bibinfo{person}{Srikanta
+  Tirthapura}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Butterfly Counting in Bipartite Networks}. In
+  \bibinfo{booktitle}{\emph{{ACM} {SIGKDD} International Conference on
+  Knowledge Discovery \& Data Mining ({KDD})}}. \bibinfo{pages}{2150--2159}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Sariy{\"{u}}ce and Pinar}{Sariy{\"{u}}ce and
+  Pinar}{2018}]%
+        {SariyuceP18}
+\bibfield{author}{\bibinfo{person}{Ahmet~Erdem Sariy{\"{u}}ce} {and}
+  \bibinfo{person}{Ali Pinar}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Peeling Bipartite Networks for Dense Subgraph
+  Discovery}. In \bibinfo{booktitle}{\emph{{ACM} International Conference on
+  Web Search and Data Mining ({WSDM})}}. \bibinfo{pages}{504--512}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Sariy\"{u}ce and Pinar}{Sariy\"{u}ce and
+  Pinar}{2018}]%
+        {SaPi18}
+\bibfield{author}{\bibinfo{person}{Ahmet~Erdem Sariy\"{u}ce} {and}
+  \bibinfo{person}{Ali Pinar}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Peeling Bipartite Networks for Dense Subgraph
+  Discovery}. In \bibinfo{booktitle}{\emph{ACM International Conference on Web
+  Search and Data Mining (WSDM)}}. \bibinfo{pages}{504--512}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Sariyuce, Seshadhri, and Pinar}{Sariyuce
+  et~al\mbox{.}}{2017}]%
+        {SarErd17}
+\bibfield{author}{\bibinfo{person}{Ahmet~Erdem Sariyuce}, \bibinfo{person}{C.
+  Seshadhri}, {and} \bibinfo{person}{Ali Pinar}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Parallel Local Algorithms for Core, Truss, and
+  Nucleus Decompositions}.
+\newblock  (\bibinfo{date}{04} \bibinfo{year}{2017}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Sariy\"{u}ce, Seshadhri, and
+  Pinar}{Sariy\"{u}ce et~al\mbox{.}}{2018}]%
+        {SarSe18}
+\bibfield{author}{\bibinfo{person}{Ahmet~Erdem Sariy\"{u}ce},
+  \bibinfo{person}{C. Seshadhri}, {and} \bibinfo{person}{Ali Pinar}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Local Algorithms for Hierarchical Dense Subgraph
+  Discovery}.
+\newblock  \bibinfo{volume}{12}, \bibinfo{number}{1} (\bibinfo{year}{2018}).
+\newblock
+\showISSN{2150-8097}
+\urldef\tempurl%
+\url{https://doi.org/10.14778/3275536.3275540}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Sariyuce, Seshadhri, Pinar, and
+  Catalyurek}{Sariyuce et~al\mbox{.}}{2015}]%
+        {SarErd15}
+\bibfield{author}{\bibinfo{person}{Ahmet~Erdem Sariyuce}, \bibinfo{person}{C.
+  Seshadhri}, \bibinfo{person}{Ali Pinar}, {and} \bibinfo{person}{Umit~V.
+  Catalyurek}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Finding the Hierarchy of Dense Subgraphs Using
+  Nucleus Decompositions}. \bibinfo{publisher}{International World Wide Web
+  Conferences Steering Committee}, \bibinfo{address}{Republic and Canton of
+  Geneva, CHE}.
+\newblock
+\showISBNx{9781450334693}
+\urldef\tempurl%
+\url{https://doi.org/10.1145/2736277.2741640}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Sariy\"{u}ce, Seshadhri, Pinar, and
+  \c{C}ataly\"{u}rek}{Sariy\"{u}ce et~al\mbox{.}}{2017}]%
+        {Sariyuce2017}
+\bibfield{author}{\bibinfo{person}{Ahmet~Erdem Sariy\"{u}ce},
+  \bibinfo{person}{C. Seshadhri}, \bibinfo{person}{Ali Pinar}, {and}
+  \bibinfo{person}{\"{U}mit~V. \c{C}ataly\"{u}rek}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Nucleus Decompositions for Identifying Hierarchy of
+  Dense Subgraphs}.
+\newblock \bibinfo{journal}{\emph{ACM Trans. Web}} \bibinfo{volume}{11},
+  \bibinfo{number}{3}, Article \bibinfo{articleno}{16} (\bibinfo{date}{July}
+  \bibinfo{year}{2017}), \bibinfo{numpages}{16:1--16:27}~pages.
+\newblock
+\showISSN{1559-1131}
+
+
+\bibitem[\protect\citeauthoryear{Shi, Dhulipala, and Shun}{Shi
+  et~al\mbox{.}}{2021}]%
+        {shi2020parallel}
+\bibfield{author}{\bibinfo{person}{Jessica Shi}, \bibinfo{person}{Laxman
+  Dhulipala}, {and} \bibinfo{person}{Julian Shun}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Parallel Clique Counting and Peeling Algorithms}.
+  In \bibinfo{booktitle}{\emph{{SIAM} Conference on Applied and Computational
+  Discrete Algorithms ({ACDA})}}. \bibinfo{publisher}{{SIAM}},
+  \bibinfo{pages}{135--146}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1137/1.9781611976830.13}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Shi and Shun}{Shi and Shun}{2020}]%
+        {ShiShun20}
+\bibfield{author}{\bibinfo{person}{Jessica Shi} {and} \bibinfo{person}{Julian
+  Shun}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Parallel Algorithms for Butterfly Computations}.
+\newblock \bibinfo{journal}{\emph{ArXiv}}  \bibinfo{volume}{abs/1907.08607}
+  (\bibinfo{year}{2020}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Shun, Blelloch, Fineman, Gibbons, Kyrola,
+  Simhadri, and Tangwongsan}{Shun et~al\mbox{.}}{2012}]%
+        {shun2012brief}
+\bibfield{author}{\bibinfo{person}{Julian Shun}, \bibinfo{person}{Guy~E
+  Blelloch}, \bibinfo{person}{Jeremy~T Fineman}, \bibinfo{person}{Phillip~B
+  Gibbons}, \bibinfo{person}{Aapo Kyrola}, \bibinfo{person}{Harsha~Vardhan
+  Simhadri}, {and} \bibinfo{person}{Kanat Tangwongsan}.}
+  \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{Brief announcement: the problem based benchmark
+  suite}. In \bibinfo{booktitle}{\emph{Proceedings of the twenty-fourth annual
+  ACM symposium on Parallelism in algorithms and architectures}}.
+  \bibinfo{pages}{68--70}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Sun, Agostini, Dong, and Kaeli}{Sun
+  et~al\mbox{.}}{2019}]%
+        {SunAgostini19}
+\bibfield{author}{\bibinfo{person}{Yifan Sun}, \bibinfo{person}{Nicolas
+  Agostini}, \bibinfo{person}{Shi Dong}, {and} \bibinfo{person}{David Kaeli}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \bibinfo{title}{Summarizing CPU and GPU Design Trends with Product
+  Data}.
+\newblock
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Tripathy, Hohman, Chau, and Green}{Tripathy
+  et~al\mbox{.}}{2018}]%
+        {TriHoh18}
+\bibfield{author}{\bibinfo{person}{Alok Tripathy}, \bibinfo{person}{Fred
+  Hohman}, \bibinfo{person}{Duen~Horng Chau}, {and} \bibinfo{person}{Oded
+  Green}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Scalable K-Core Decomposition for Static Graphs
+  Using a Dynamic Graph Data Structure}. In \bibinfo{booktitle}{\emph{2018 IEEE
+  International Conference on Big Data (Big Data)}}.
+  \bibinfo{pages}{1134--1141}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/BigData.2018.8622056}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Tsourakakis}{Tsourakakis}{2015}]%
+        {Tsour15}
+\bibfield{author}{\bibinfo{person}{Charalampos Tsourakakis}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{The K-Clique Densest Subgraph Problem}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 24th International Conference on
+  World Wide Web}} \emph{(\bibinfo{series}{WWW '15})}.
+  \bibinfo{publisher}{International World Wide Web Conferences Steering
+  Committee}, \bibinfo{address}{Republic and Canton of Geneva, CHE},
+  \bibinfo{pages}{1122–1132}.
+\newblock
+\showISBNx{9781450334693}
+\urldef\tempurl%
+\url{https://doi.org/10.1145/2736277.2741098}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Venu}{Venu}{2011}]%
+        {Venu11}
+\bibfield{author}{\bibinfo{person}{Balaji Venu}.}
+  \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{Multi-core processors - An overview}.
+\newblock  (\bibinfo{date}{10} \bibinfo{year}{2011}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Wang and Cheng}{Wang and Cheng}{2012a}]%
+        {WangCheng12}
+\bibfield{author}{\bibinfo{person}{Jia Wang} {and} \bibinfo{person}{James
+  Cheng}.} \bibinfo{year}{2012}\natexlab{a}.
+\newblock \showarticletitle{Truss Decomposition in Massive Networks}.
+\newblock \bibinfo{journal}{\emph{Proceedings of the VLDB Endowment}}
+  \bibinfo{volume}{5} (\bibinfo{date}{05} \bibinfo{year}{2012}).
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.14778/2311906.2311909}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Wang and Cheng}{Wang and Cheng}{2012b}]%
+        {Wang2012}
+\bibfield{author}{\bibinfo{person}{Jia Wang} {and} \bibinfo{person}{James
+  Cheng}.} \bibinfo{year}{2012}\natexlab{b}.
+\newblock \showarticletitle{Truss Decomposition in Massive Networks}.
+\newblock \bibinfo{journal}{\emph{Proc. VLDB Endow.}} \bibinfo{volume}{5},
+  \bibinfo{number}{9} (\bibinfo{date}{May} \bibinfo{year}{2012}),
+  \bibinfo{pages}{812--823}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Wang, Lin, Qin, Zhang, and Zhang}{Wang
+  et~al\mbox{.}}{2020a}]%
+        {WaKai20}
+\bibfield{author}{\bibinfo{person}{Kai Wang}, \bibinfo{person}{Xuemin Lin},
+  \bibinfo{person}{Lu Qin}, \bibinfo{person}{Wenjie Zhang}, {and}
+  \bibinfo{person}{Ying Zhang}.} \bibinfo{year}{2020}\natexlab{a}.
+\newblock \showarticletitle{Efficient Bitruss Decomposition for Large-scale
+  Bipartite Graphs}. \bibinfo{pages}{661--672}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/ICDE48307.2020.00063}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Wang, Lin, Qin, Zhang, and Zhang}{Wang
+  et~al\mbox{.}}{2021}]%
+        {WangLin21}
+\bibfield{author}{\bibinfo{person}{Kai Wang}, \bibinfo{person}{Xuemin Lin},
+  \bibinfo{person}{Lu Qin}, \bibinfo{person}{Wenjie Zhang}, {and}
+  \bibinfo{person}{Ying Zhang}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Towards efficient solutions of bitruss
+  decomposition for large-scale bipartite graphs}.
+\newblock \bibinfo{journal}{\emph{The VLDB Journal}} (\bibinfo{date}{03}
+  \bibinfo{year}{2021}), \bibinfo{pages}{1--24}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1007/s00778-021-00658-5}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Wang, Zhang, Lin, Zhang, Qin, and Zhang}{Wang
+  et~al\mbox{.}}{2020b}]%
+        {WangZhang20}
+\bibfield{author}{\bibinfo{person}{Kai Wang}, \bibinfo{person}{Wenjie Zhang},
+  \bibinfo{person}{Xuemin Lin}, \bibinfo{person}{Ying Zhang},
+  \bibinfo{person}{Lu Qin}, {and} \bibinfo{person}{Yuting Zhang}.}
+  \bibinfo{year}{2020}\natexlab{b}.
+\newblock \showarticletitle{Efficient and Effective Community Search on
+  Large-scale Bipartite Graphs}.
+\newblock  (\bibinfo{date}{11} \bibinfo{year}{2020}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Watts and Strogatz}{Watts and
+  Strogatz}{1998}]%
+        {watts1998cds}
+\bibfield{author}{\bibinfo{person}{D.~J. Watts} {and} \bibinfo{person}{S.~H.
+  Strogatz}.} \bibinfo{year}{1998}\natexlab{}.
+\newblock \showarticletitle{Collective dynamics of 'small-world' networks}.
+\newblock \bibinfo{journal}{\emph{Nature}} \bibinfo{volume}{393},
+  \bibinfo{number}{6684} (\bibinfo{year}{1998}), \bibinfo{pages}{409--10}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zagha and Blelloch}{Zagha and
+  Blelloch}{1991}]%
+        {Zagha91}
+\bibfield{author}{\bibinfo{person}{Marco Zagha} {and} \bibinfo{person}{Guy~E.
+  Blelloch}.} \bibinfo{year}{1991}\natexlab{}.
+\newblock \showarticletitle{Radix sort for vector multiprocessors}. In
+  \bibinfo{booktitle}{\emph{Supercomputing '91:Proceedings of the 1991 ACM/IEEE
+  Conference on Supercomputing}}. \bibinfo{pages}{712--721}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/125826.126164}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Zhang and Parthasarathy}{Zhang and
+  Parthasarathy}{2012}]%
+        {ZhangPar12}
+\bibfield{author}{\bibinfo{person}{Yang Zhang} {and}
+  \bibinfo{person}{Srinivasan Parthasarathy}.} \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{Extracting Analyzing and Visualizing Triangle
+  K-Core Motifs within Networks}.
+\newblock  (\bibinfo{date}{04} \bibinfo{year}{2012}),
+  \bibinfo{pages}{1049--1060}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/ICDE.2012.35}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Zhao and Tung}{Zhao and Tung}{2012}]%
+        {ZhaoTung12}
+\bibfield{author}{\bibinfo{person}{Feng Zhao} {and} \bibinfo{person}{Anthony
+  Tung}.} \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{Large scale cohesive subgraphs discovery for social
+  network visual analysis}.
+\newblock \bibinfo{journal}{\emph{Proceedings of the VLDB Endowment}}
+  \bibinfo{volume}{6}, \bibinfo{pages}{85--96}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.14778/2535568.2448942}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Zou}{Zou}{2016}]%
+        {ZouZhao16}
+\bibfield{author}{\bibinfo{person}{Zhaonian Zou}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Bitruss Decomposition of Bipartite Graphs}.
+  \bibinfo{publisher}{Springer-Verlag}, \bibinfo{address}{Berlin, Heidelberg}.
+\newblock
+\showISBNx{9783319320489}
+\urldef\tempurl%
+\url{https://doi.org/10.1007/978-3-319-32049-6_14}
+\showDOI{\tempurl}
+
+
+\end{thebibliography}

@@ -1,0 +1,28 @@
+\subsection{P-completeness}
+
+The span of our algorithm is not polylogarithmic. However, this is to be expected as the problem of bi-core decomposition is P-complete, which we prove here. We prove the P-completeness of the decision version of the bi-core decomposition problem. The decision problem is: given values $\alpha, \beta$ and a simple bipartite graph, decide if $(\alpha, \beta)$-core is nonempty in the graph. This is a generalization of the $k$-core decision problem on a bipartite graph: given value $k$, decide if $(k,k)$-core exists. We show the P-completeness of bi-core decision problem using a reduction from the $k$-core decision problem. 
+
+\begin{theorem}
+The $(\alpha,\beta)$-core decomposition problem is P-complete if and only if $\alpha \ge 3$ or $\beta \ge 3$. Otherwise, if $\alpha \leq 2$ and $\beta \leq 2$, it is in NC.
+\end{theorem}
+
+\myparagraph{When $\alpha \leq 2$ and $\beta \leq 2$}
+For $\alpha= 2$ or $\beta= 2$, the $(2,2)$-core decomposition problem is equivalent to the $k$-core decomposition problem on the bipartite graph with $k=2$, which has an NC solution \cite{Anderson84}.
+
+If $\alpha=1$, then the $(1,\beta)$-core decomposition problem is equivalent to finding all vertices $x\in V$ such that $\deg(x)\ge \beta$ as well as its neighbors in partition $U$. Similarly, we can solve $(\alpha,1)$-core decomposition for some arbitrary $\alpha$ with $\BigO{1}$ span.
+
+\myparagraph{When $\alpha\ge 3$ and $\beta \ge 3$}
+We perform the reduction from the $k$-core decision problem in a general graph $G$ by constructing $G'$ such that $G'$ is bipartite and the $k$-core decision problem on $G$ is equivalent to the $(k,k)$-core decision problem on $G'$. 
+
+Let $G'$ consist of two partitions $U, V$ where each partition is a copy of all vertices of $G$. In other words, a vertex $x\in G$ is copied to $x_u$ and $x_v$ in $G'$. Now, we connect an edge $(x_u, y_v)$ in $G'$ if $(x,y)$ is an edge in $G$. 
+
+Now, we show that for any value $k$, $k$-core is nonempty in $G$ if and only if $(k,k)$-core is nonempty in $G'$. If the $k$-core of $G$ is nonempty and comprises a vertex subset $W$, then for $w\in W$, $\deg(w)\ge k$, or there exists $\ge k$ edges of the form $(w, p)$, where $p\in W$. Now consider $W' = W_V\bigcup W_U$ in $G$. Given that $W_U, W_V$ are copies of $W$, and each $w\in W$ has $\ge k$ edges of the form $(w, p)$, we know each $w_U\in W_U$ is incident to $\ge k$ edges of the form $(w_U, p_V)$. Similarly for each $w_V\in W_V$. Therefore, $W'$ forms a $(k,k)$-core on the bipartite graph and so the $(k,k)$-core is nonempty in $G'$. 
+
+Reversely, if the $(k,k)$-core in $G'$ is nonempty, we show that the $k$-core in $G$ is nonempty. Due to the symmetry of $U,V$ partitions, if $w_U\in (k,k)$-core, then $w_V\in (k,k)$-core. Therefore, if the $(k,k)$-core of $G'$ is $W'$, then $W' = W_U \bigcup W_V$ and $W_U, W_V$ are mirror images of each other. Let $W$ be the vertex subset in $G$ that corresponds to $W_U, W_V$. We show that it is a $k$-core in $G$. For each vertex $w_U$ incident to edges of the form $(w_U, p_V)$ where $p_V\in W_V$, its corresponding vertex $w$ in $W$ is incident to the corresponding edges of the form $(w,p)$ and $p\in W$ because $p_V\in W_V$. Since $\deg(w_U)\ge k$ for each $w_U\in W_U$, $\deg(w)\ge k$ for each $w\in W$. Therefore, $W$ forms a $k$-core of graph $G$ and so the $k$-core of graph $G$ is nonempty. 
+
+Given the correspondence between the $k$-core decision problem on graph $G$ with the $(k,k)$-core decision problem on graph $G'$, we have obtained an NC reduction from the $k$-core problem to the bi-core problem since constructing $G'$ takes work $\BigO{m}$ and span $\BigO{1}$. Therefore, given that $k$-core decomposition is P-complete for $k\ge 3$, we know that bi-core decomposition is P-complete for $\alpha\ge 3, \beta\ge 3$.
+
+\myparagraph{When one of $\alpha$, $\beta$ $=2$}
+For the case where $\alpha=2$ and $\beta$ is some arbitrary value $\ge 3$ (the reverse of this is symmetric and thus not shown). We show that deciding whether $(2,\beta)$-core is nonempty has a reduction from the $k$-core equivalent with $k=\beta$. Consider an arbitrary simple graph and the $k$-core problem on this graph. We create a middle-vertex for each edge in the graph. Putting these middle-vertices into the $U$ partition and the original vertices into the $V$ partition, we can create in $\BigO{1}$ span a bipartite graph where all vertices in $U$ has a degree of $2$. Now, deciding if $(2,\beta)$-core nonempty is equivalent to deciding if the $k$-core of the original graph is nonemtpy, where $k=\beta$, because each wedge in the bipartite graph corresponds to an edge in the original graph. Given this reduction, we know the problem of bi-core decomposition is P-complete if the core $(\alpha,\beta)$ is of the form $(2,\beta)$ with $\beta\ge 3$ or $(\alpha,2)$ with $\alpha\ge 3$.
+
+Thus, we have proven that the bi-core decomposition problem is in NC if and only if $\alpha= 1$ or $\beta= 1$ or $\alpha,\beta = 2$. Otherwise, it is P-complete, meaning that it is most likely impossible to obtain an algorithm with polylogarithmic span.

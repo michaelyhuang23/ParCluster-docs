@@ -1,0 +1,18 @@
+\section{Applications}
+Computing alpha-beta core is important because of the many real-world relationships that can be modeled by bipartite graphs. An efficient bi-core decomposition algorithm can benefit dense subgraph discovery in bipartite graphs. 
+
+Bipartite graphs are commonly used in biology to model the functions of drugs, proteins, genes, the relationships between species, and more. Dense subgraph discovery (k-core, k-truss, k-clique) is fundamental graph problem applied to fraudster detection, social network analysis and analysis of gene function/similarity in social, biographical, as well as many other forms of bipartite networks. \michael{however, k-core decomposition is not directly applicable to bipartite graphs due to the difference in degrees between the two entities. To analyze a bipartite graphs, we often need to project it first into a unipartite graph and then apply traditional unipartite graph analysis on it, such as k-core decomposition. However, this method is indirect, inaccurate, and cost extra memory. Therefore, computing bi-cores is significant for analysis of bipartite graphs.} Computing bi-cores instead of k-cores can improve the accuracy of densest subgraph approximation and take into account the difference in average degree of the two partitions in these network (try finding research paper that use bi-truss, tip-decomposition, wing-decomposition or even better bi-core decomposition in biological network analysis). 
+
+Bipartite graphs are commonly used in medicine. They can represent the functions of drugs, proteins, and genes. In addition, they are particularly predisposed to represent relationships, like predator-prey, host-pathogen, and gene-protein, as well as protein-protein interactions  \cite{Algarra2013}.
+
+Protein-protein interactions (PPIs) are commonly represented as bipartite graphs. By using PPI networks, Fionda et al. \cite{Fionda2007} were able to compare neighborhoods of protein pairs to learn more about their functions, effectively modeling the \textit{interactome}. This gives us the ability to learn more about these proteins' roles in cells. An example is Bi-GRAPPIN, an algorithm to find neighborhoods of protein interactions in a proteome and search for similarities. Such knowledge is vital in the development of drugs and medicine as well as to better understand protein-based diseases.
+
+Community search is a fundamental problem in network science. Given the increased interest in analyzing large amounts of data, the ability to find specific communities (subgraphs) given increasingly specific queries quickly and efficiently is invaluable \cite{Fang2019survey}. Wang et al. \cite{WangZhang20} found that the ($\alpha$, $\beta$)-community can be retrieved in optimal time. This is a significant finding for the analysis of large-scale weighted bipartite graphs.
+
+Bipartite graphs themselves are commonly used to describe 1 on 1 connections and relationships. The Liu \textit{et al} paper provides an example of a customer-movie network 
+
+% move it to introduction
+
+% Ahmed et al. analyzed multiple large and complex multivariate networks from the Internet Movie Database (IMDB) \cite{AhmedBat07}
+
+% i think this is done?? 

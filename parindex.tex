@@ -1,0 +1,96 @@
+\section{Parallel Bi-core Index Structure}\label{sec:parindex}
+
+To allow for linear-time queries of $(\alpha,\beta)$-cores, we parallelize the indexing structure introduced by Liu \textit{et al.} \cite{Liu2020Efficient}. In this section, we discuss our parallel index construction and query algorithms. Both algorithms are work-efficient. The index construction algorithm has $\BigO{\log(n)}$ span, and the query algorithm has $\BigO{1}$ span.
+
+We define $\mathbb{PI}^U, \mathbb{PI}^V$ to be the parallel index structures for the $U, V$ vertex partitions respectively. $\mathbb{PI}^U$ is the parallel version of $\mathbb{I}^U$, and $\mathbb{PI}^U_{\alpha, \beta}$ is the parallel version of $\mathbb{I}^U_{\alpha, \beta}$. Again, due to symmetry, we only discuss $\mathbb{PI}^U_{\alpha,\beta}$. $\mathbb{PI}^U_{\alpha,\beta}$ is a set containing the same elements as $\mathbb{I}^U_{\alpha,\beta}$ for any combination of $\alpha, \beta$. %The main structural difference lies in their implementation. 
+In Liu \textit{et al.}'s work, each set $\mathbb{I}^U_{\alpha,\beta}$ is stored separately, pointed to within $\mathbb{I}^U$. In our parallelization, we store all the sets of vertices contiguously in an array, ordered first by their $\alpha$ value and then by their $\beta$ value. 
+We call this array $\text{P}$. 
+This is similar to the compressed sparse row (CSR) format used in graph representations. 
+Then, we define $\text{M}$, a 2D jagged array where each $\text{M}[\alpha][\beta]$ corresponds to a set $\mathbb{PI}^U_{\alpha,\beta}$ and contains the starting index of that set in the array $\text{P}$. By definition, $\mathbb{PI}^U_{\alpha,\beta}=$ all vertices in $\text{P}$ in range $\left[\text{M}[\alpha][\beta], \text{M}[\alpha][\beta+1]\right)$. 
+
+This way, $\left[\text{M}[\alpha][\beta], \text{M}[\alpha+1][0]\right)$ directly gives the range of vertices in $\text{P}$ that corresponds to $\bigcup_{i = \beta}^{\max_\beta(\alpha)} \mathbb{PI}^U_{\alpha,i} = (\alpha,\beta)$-core.
+
+Thus, to query the $(\alpha,\beta)$-core, we return all vertices in $P$ in the range $\left[\text{M}[\alpha][\beta],\text{M}[\alpha+1][0]\right)$. This takes $\BigO{|(\alpha,\beta)\text{-core}|}$ work and $\BigO{1}$ span.
+
+
+\subsection{Parallel Index Construction}
+
+% \jessica{Introduce pseudocode first -- "The pseudocode for our parallel index construction algorithm is in Algorithm ...". (I guess you do this later, but in that case, you shouldn't mention Algorithm x here. Just say the objective of our parallel index construction algorithm is...}
+The objective of the index construction algorithm is to take as input $\beta_{\max \alpha}(u)$ for every $u\in U$ and construct M and P. 
+
+To construct P, we perform parallel \algname{radix-sort} on the vertices based on their $\alpha,\beta$ values. Then, we use a parallel filter to find the indices at which the $\alpha \text{ or } \beta$ value differs, which we store in an array $\text{TPT}$ (total pointer table). We also find indices where the $\alpha$ value differs, which we store in $\text{FPT}$ (first pointer table). Then, using these two pointer tables, the 2D jagged array $\text{M}$ is constructed. 
+% mention CSR
+
+\begin{algorithm}
+ \footnotesize
+\caption{Parallel Index Construction}
+ \begin{algorithmic}[1]
+ 
+ \Procedure{Build-U-Index}{$\beta_{\max}$} 
+ \State $\text{P}\leftarrow$ list of $(\alpha, \beta_{\max \alpha}(u), u)$ for every $u\in U$ \label{par-index:list}
+ \State \algname{radix-sort}($\text{P}$) \Comment{Sorts the list of tuples by first $\alpha$, then $\beta$ values} \label{par-index:radix}
+ \State Initialize $\text{TPT}$ \Comment{Creates an empty $\text{TPT}$ with the same size as $\text{P}$}
+ \ParFor{$i=0$ to $\text{P}.\text{size}-1$}
+    \If{$i=0$ or $\text{P}$[$i-1$].$\alpha \not =$ $\text{P}$[$i$].$\alpha$ or $\text{P}$[$i-1$].$\beta \not = \text{P}$[$i$].$\beta$}
+        \State $\text{TPT}$[$i$]$\leftarrow i$ \Comment{Records index location where $\alpha$ or $\beta$ changes value}
+    \EndIf
+ \EndParFor
+ \State \Call{filter}{$\text{TPT}$, element is not empty} \Comment{Filter out empty indices in $\text{TPT}$}
+ \State Initialize $\text{FPT}$ \Comment{Creates an empty $\text{FPT}$ with the same size as $\text{TPT}$}
+ \ParFor{$i=0$ to $\text{TPT}.\text{size}-1$}
+    \If{$i=0$ or $\text{P}$[$\text{TPT}$[$i-1$]].$\alpha \not =$ $\text{P}$[$\text{TPT}$[$i$]].$\alpha$}
+        \State $\text{FPT}$[$i$]$\leftarrow i$ \Comment{Records index location on $\text{TPT}$ array of where $\alpha$ value changes}
+    \EndIf
+ \EndParFor
+ \State \Call{filter}{$\text{FPT}$, element is not empty} \Comment{Filter out empty indices in $\text{FPT}$}
+ \State Initialize $\text{M}$ \Comment{Creates empty $\text{M}$ array with $1\text{st}$ dimension $= \text{FPT}.\text{size}$ and $2^\text{nd}$ dimension $= \max_\beta(\alpha)$}
+ \ParFor{$\alpha=1$ to $\text{FPT}.\text{size}$}
+    \ParFor{$j=\text{FPT}$[$\alpha-1$] to $\text{FPT}$[$\alpha$]$-1$}
+        \State $\text{start}\leftarrow \text{TPT}$[$j$] \Comment{Gets start index location of $j^\text{th}$ block}
+        \State $\text{M}$[$\alpha$][$\text{P}$[$\text{start}$].$\beta$] $\leftarrow\text{start}$ \Comment{Stores start location; $\text{P}[\text{start}].\beta$ gives $j^\text{th}$ block's corresponding $\beta$ value}
+    \EndParFor
+    \State $\text{M}$[$\alpha$] $\leftarrow$ \algname{suffix-min}($\text{M}$[$\alpha$])
+ \EndParFor
+ \State \Return $\text{M}$ 
+ \EndProcedure
+ 
+ \Procedure{Build-V-Index}{$\alpha_{\max}$} 
+ \State symmetric to \algname{build-u-index}
+ \EndProcedure
+ \end{algorithmic}
+ \label{alg-ind-cons}
+\end{algorithm}
+
+The pseudocode for our parallel index construction algorithm is given in Algorithm \ref{alg-ind-cons}. We now discuss our algorithm in more detail.
+First, on Line \ref{par-index:list}, we store a list of tuples $(\alpha, \beta_{\max \alpha}(u), u)$ to $\text{P}$. This is the list of all possible combinations of $\alpha$ and vertex $u\in U$, with the $\beta_{\max \alpha}(u)$ value attached. We perform parallel \algname{radix-sort} on $\text{P}$ based on the ordering of first the $\alpha$ values and then the $\beta$ values on Line \ref{par-index:radix}. We initialize an empty $\text{TPT}$ on Line 4 with the same size as $\text{P}$. The parallel for loop on Lines 5--8 finds all indices at which either the $\alpha$ value or the $\beta$ value in $\text{P}$ changes. 
+This is accomplished by marking the indices where changes happen on Line 7 and filtering out all the unmarked index positions on Line 8. Constructing $\text{TPT}$ essentially breaks up the array $\text{P}$ into blocks where each block has constant $\alpha,\beta$ value and corresponds to set $\mathbb{PI}^U_{\alpha, \beta}$. $\text{TPT}[i]$ records the starting index location of the $i^\text{th}$ block. Lines 9--13 repeats the entire process, but for $\text{FPT}$ to filter out index positions where the $\alpha$ value of $\text{P}$ changes. Note that the indices stored in $\text{FPT}$ are not indices of positions in $\text{P}$. Instead, they are indices of positions in $\text{TPT}$. $\left[\text{FPT}[\alpha-1],\text{FPT}[\alpha]\right)$ gives the range of blocks defined by $\text{TPT}$ that has this particular $\alpha$ value. It corresponds to set $\mathbb{PI}^U_{\alpha}$. 
+
+Finally, based on $\text{FPT}$ and $\text{TPT}$, we create $\text{M}$ in the following manner. We obtain $\text{M}[\alpha]$ for each $\alpha$ value independently. Line 16 iterates in parallel over the blocks that have the particular $\alpha$ value. For each block $j$, we store its starting position $\text{TPT}[j]$ to $\text{M}[\alpha][\beta_j]$ where $\beta_j$ is the $\beta$ value corresponding with the $j^\text{th}$ block. This is done on lines 17--18. Now, we have constructed $\text{M}[\alpha][\beta']$ correctly for all $(\alpha,\beta')$ pairs such that $\beta'$ appears in $\beta_{\max \alpha}(u)$ for some $u\in U$. 
+
+For pairs $(\alpha, \beta)$ such that $\beta$ does not appear in $\beta_{\max \alpha}(u)$ for some $u\in U$, we point $\text{M}[\alpha][\beta]$ to the same destination as $\text{M}[\alpha][\beta']$ where $\beta'$ is the smallest value larger than $\beta$ and appears in $\beta_{\max \alpha}(u)$ for some $u\in U$. We accomplish this by performing \algname{suffix-min} on $\text{M}[\alpha]$ on Line 19.
+
+
+\myparagraph{Analysis}
+Since $\text{P}.\text{size} = \BigO{m}$, the work is bounded by $\BigO{m}$ since all operations on lines 3--14 have linear work with respect to the length of the array input. Lines 15--19 have work complexity $\BigO{m}$, because we loop through the $\text{M}$ table exactly once and from Section \ref{sec:seqindex}, we know the table takes $\BigO{m}$ space.
+
+Algorithm \ref{alg-ind-cons} has span $\BigO{\log(n)}$ \textit{w.h.p.}, since \algname{radix-sort}, \algname{filter}, and all other operations are bounded by $\BigO{\log(m)} = \BigO{\log(n)}$ span \textit{w.h.p.}. 
+
+
+% \subsection{Parallel Bi-core Query}
+
+% \begin{algorithm}
+%  \footnotesize
+% \caption{Parallel Bi-core Query}
+%  \begin{algorithmic}[1]
+ 
+%  \Procedure{Query-U}{$\alpha$, $\beta$} 
+%     \If{$\alpha$, $\beta$ does not exist in $\text{M}$}
+%         \State \Return $\emptyset$
+%     \EndIf
+%     \State $\text{start}\leftarrow \text{M}$[$\alpha$][$\beta$] 
+%     \State $\text{end}\leftarrow \text{M}$[$\alpha+1$][$0$] 
+%     \State \Return \algname{slice}$(\text{P},\text{start}, \text{end})$ \Comment{Slice the array $\text{P}$ from start to end (exclusive) in parallel}
+%  \EndProcedure
+%  \end{algorithmic}
+%  \label{alg-ind-q}
+% \end{algorithm}
